@@ -1,0 +1,139 @@
+.Applayout {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.content-container {
+  display: grid;
+  grid-template-rows: 0.5fr 5fr;
+}
+
+.logo {
+  height: 200px;
+  width: 220px;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  flex-direction: column;
+}
+
+.hr {
+  width: 80%;
+}
+
+.add-client {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  height: 40px;
+  width: 40px;
+}
+
+.add-client:hover {
+  color: #8d8a8a;
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding: 20px;
+  flex-direction: column;
+}
+
+.headeraccount {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-right: 20px;
+  gap: 10px;
+}
+
+.headeraccount-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: default;
+}
+
+.headeraccount-arrow {
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  padding-top: 6px;
+}
+
+.headeraccount-arrow:hover {
+  background-color: #8d8a8a;
+}
+
+.headeraccount-text {
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: default;
+}
+
+.headeraccount-avatar {
+  height: 50px;
+  border-radius: 50%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar {
+  background-color: #f5f5f5;
+  border-right: 1px solid #e0e0e0;
+  padding: 10px;
+
+  height: 100dvh;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.links a {
+  text-decoration: none;
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.links a:hover {
+  color: #8d8a8a;
+}
+
+.header {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+  padding-top: 20px;
+  padding-right: 20px;
+  display: flex;
+  justify-content: end;
+}
