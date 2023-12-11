@@ -1,9 +1,9 @@
 import Navbar from './Navbar';
 
-export default function Sidebar() {
+export default function Sidebar({ setClients }) {
   return (
     <div className="sidebar">
-      <Navbar />
+      <Navbar setClients={setClients} />
     </div>
   );
 }

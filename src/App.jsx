@@ -5,19 +5,22 @@ import CreateInvoice from './pages/CreateInvoice';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Clients from './pages/Clients';
+import { useState } from 'react';
 
 function App() {
+  const [clients, setClients] = useState([]);
+
   return (
     <Router>
       <div className="Applayout">
-        <Sidebar />
+        <Sidebar setClients={setClients} />
         <div className="content-container">
           <Header />
-          <div className="content">
+          <div className="">
             <Routes>
               <Route exact path="/" element={<Home />} />
               <Route path="/createinvoice" element={<CreateInvoice />} />
-              <Route path="/clients" element={<Clients />} />
+              <Route path="/clients" element={<Clients clients={clients} />} />
             </Routes>
           </div>
         </div>
