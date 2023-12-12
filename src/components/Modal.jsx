@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-export default function Modal({ ModalForm, swapModal }) {
+export default function Modal({ ModalForm, swapModal, className }) {
   const modalRef = useRef();
 
   const handleClick = (event) => {
@@ -11,7 +11,7 @@ export default function Modal({ ModalForm, swapModal }) {
 
   return (
     <div className="modal" onClick={handleClick} ref={modalRef}>
-      <div className="modal-content">{ModalForm}</div>
+      <div className={className}>{ModalForm}</div>
     </div>
   );
 }

@@ -20,6 +20,17 @@
   padding: 20px;
 }
 
+.settingsModal {
+  width: fit-content;
+  padding: 20px;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0px #8d8a8a93;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .clientCard:hover {
   background-color: #f5f5f5;
   border-radius: 10px;
@@ -123,14 +134,15 @@
 .headeraccount-arrow {
   cursor: pointer;
   padding: 5px;
-  border-radius: 50%;
+  border-radius: 15px;
   justify-content: center;
   align-items: center;
-  padding-top: 6px;
+  display: flex;
 }
 
 .headeraccount-arrow:hover {
-  background-color: #8d8a8a;
+  background-color: #bbbbbb;
+  box-shadow: 0 0 10px 0px #55555593;
 }
 
 .headeraccount-text {

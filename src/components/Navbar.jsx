@@ -31,6 +31,7 @@ export default function Navbar({ setClients }) {
         </div>
         {showModal && (
           <Modal
+            className={'modal-content'}
             ModalForm={
               <AddClientForm
                 setClients={setClients}
