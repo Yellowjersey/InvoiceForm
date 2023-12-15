@@ -1,22 +1,80 @@
+import EditClientModal from './EditClientModal';
+
 export default function ClientCard({
   clientName,
   clientAddress,
   clientPhone,
   clientEmail,
-  key,
+  clientId,
   clientNotes,
   clientImg,
+  clientRate,
+  isHourly,
+  editClient,
+  setEditClient,
+  setUpdatedClient,
+  updatedClient,
+  editedClient,
+  setEditedClient,
 }) {
+  function handleClientClick(e) {
+    if (e.target.className === 'clientCard') {
+      setEditClient(!editClient);
+    }
+  }
+
   return (
-    <div className="clientCard">
-      <div className="client" key={key}>
-        <img src={clientImg} />
-        <h2 className="clientName">{clientName}</h2>
-        <h3 className="clientAddress">{clientAddress}</h3>
-        <h3 className="clientPhone">{clientPhone}</h3>
-        <h3 className="clientEmail">{clientEmail}</h3>
-        <p className="clientNotes">{clientNotes}</p>
+    <>
+      {editClient ? (
+        <EditClientModal
+          setEditedClient={setEditedClient}
+          editedClient={editedClient}
+          setUpdatedClient={setUpdatedClient}
+          updatedClient={updatedClient}
+          name={clientName}
+          address={clientAddress}
+          phone={clientPhone}
+          email={clientEmail}
+          id={clientId}
+          note={clientNotes}
+          img={clientImg}
+          rate={clientRate}
+          hour={isHourly}
+          setEditClient={setEditClient}
+        />
+      ) : null}
+      <div
+        className="clientCard"
+        key={clientId}
+        onClick={(e) => {
+          handleClientClick(e);
+        }}
+      >
+        <div className="client">
+          <div className="clientImgContainer">
+            <img src={clientImg} />
+          </div>
+          <h2 className="clientName">Name: {clientName}</h2>
+          <h3 className="clientAddress">Address: {clientAddress}</h3>
+          <h3 className="clientPhone">Phone Number: {clientPhone}</h3>
+          <h3 className="clientEmail">Email: {clientEmail}</h3>
+          <p className="clientNotes">Notes: {clientNotes}</p>
+
+          <h3 className="clientPay">
+            Rate: $ {clientRate} {isHourly ? <p>/hr</p> : <p>/wk</p>}
+          </h3>
+          {/* <div>
+            <input
+            id="isHourly"
+              type="checkbox"
+              className="checkBox"
+              checked={isHourly}
+              disabled
+              />
+              <label htmlFor="isHourly">Hourly</label>
+            </div> */}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

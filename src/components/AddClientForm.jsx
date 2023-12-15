@@ -14,6 +14,8 @@ export default function AddClientForm({ setClients, closeModal }) {
       clientNotes: form.clientNotes.value,
       clientImg: 'https://picsum.photos/200',
       clientId: Math.random(),
+      clientRate: form.clientRate.value,
+      isHourly: form.isHourly.checked,
     };
 
     if (
@@ -43,6 +45,16 @@ export default function AddClientForm({ setClients, closeModal }) {
       <input type="text" id="clientEmail" />
       <label htmlFor="clientNotes">Client Notes</label>
       <input type="text" id="clientNotes" />
+      <div className="clientRate">
+        <div className="rateInput">
+          <label htmlFor="clientPay">Client Rate</label>
+          <input type="number" id="clientRate" />
+        </div>
+        <div className="checkBoxContainer">
+          <input type="checkbox" id="isHourly" className="checkBox" />
+          <label htmlFor="isHourly">Hourly</label>
+        </div>
+      </div>
       <button type="submit">Add Client</button>
     </form>
   );

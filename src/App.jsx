@@ -18,9 +18,12 @@ function App() {
           <Header />
           <div className="">
             <Routes>
-              <Route exact path="/" element={<Home />} />
+              <Route exact path="/" element={<Home clients={clients} />} />
               <Route path="/createinvoice" element={<CreateInvoice />} />
-              <Route path="/clients" element={<Clients clients={clients} />} />
+              <Route
+                path="/clients"
+                element={<Clients clients={clients} setClients={setClients} />}
+              />
             </Routes>
           </div>
         </div>
