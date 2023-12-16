@@ -259,7 +259,7 @@
 .modal-content {
   background-color: #fff;
   width: 500px;
-  height: 500px;
+  height: fit-content;
   border-radius: 10px;
   padding: 20px;
   display: flex;
@@ -304,7 +304,7 @@
   gap: 10px;
 }
 
-.add-client-form input {
+.add-client-form-input {
   height: 40px;
   border-radius: 5px;
   border: 1px solid #e0e0e0;
@@ -364,6 +364,7 @@
   display: flex;
   justify-content: space-between;
   gap: 10px;
+  align-items: center;
 }
 
 .homeClientCard {
@@ -391,7 +392,8 @@
 }
 
 .checkBox {
-  height: 8px;
+  margin-top: 20px;
+  height: 14px;
   width: 20px;
 }
 

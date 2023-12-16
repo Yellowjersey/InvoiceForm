@@ -2,22 +2,24 @@ import { useEffect, useState } from 'react';
 import ClientCard from '../components/ClientCard';
 
 export default function Clients({ clients, setClients }) {
-  const [editClient, setEditClient] = useState(false);
   const [updatedClient, setUpdatedClient] = useState([...clients]);
   const [editedClient, setEditedClient] = useState([]);
 
+  useEffect(() => {
+    setClients([...updatedClient]);
+  }, [updatedClient]);
+
   return (
     <div className="clients">
-      {updatedClient.length > 0 ? (
-        updatedClient.map((client) => {
+      {clients.length > 0 ? (
+        clients.map((client) => {
           return (
             <ClientCard
+              clients={clients}
               editedClient={editedClient}
               setEditedClient={setEditedClient}
               updatedClient={updatedClient}
               setUpdatedClient={setUpdatedClient}
-              editClient={editClient}
-              setEditClient={setEditClient}
               clientId={client.clientId}
               key={client.clientId}
               clientName={client.clientName}
@@ -28,6 +30,7 @@ export default function Clients({ clients, setClients }) {
               clientImg={client.clientImg}
               clientRate={client.clientRate}
               isHourly={client.isHourly}
+              clientBalance={client.clientBalance}
             />
           );
         })

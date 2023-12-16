@@ -6,7 +6,7 @@ export default function ClientTotals({ clients }) {
       <HomeClientCards
         Name={client.clientName}
         img={client.clientImg}
-        total={client.clientRate}
+        total={client.clientBalance}
       />
     );
   });

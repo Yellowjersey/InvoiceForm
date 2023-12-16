@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function EditClientModal({
   name: initialName,
@@ -15,6 +15,8 @@ function EditClientModal({
   updatedClient,
   editedClient,
   setEditedClient,
+  clients,
+  clientBalance: initialBalance,
 }) {
   const [clientName, setClientName] = useState(initialName);
   const [clientAddress, setClientAddress] = useState(initialAddress);
@@ -25,6 +27,7 @@ function EditClientModal({
   const [clientImg, setClientImg] = useState(initialImg);
   const [clientRate, setClientRate] = useState(initialRate);
   const [isHourly, setIsHourly] = useState(initialHour);
+  const [clientBalance, setClientBalance] = useState(initialBalance);
 
   function handleUpdate(e) {
     e.preventDefault();
@@ -39,15 +42,18 @@ function EditClientModal({
       clientImg,
       clientRate,
       isHourly,
+      clientBalance,
     };
 
-    const updatedClients = updatedClient.map((client) => {
+    const updatedClients = clients.map((client) => {
       if (client.clientId === clientId) {
         return changeClient;
       } else {
         return client;
       }
     });
+
+    setUpdatedClient(updatedClients);
 
     setEditClient(false);
   }
@@ -60,13 +66,13 @@ function EditClientModal({
         onSubmit={(e) => handleUpdate(e)}
       >
         <h1>Edit {initialName}'s Profile</h1>
-        <h3>Upload a new image</h3>
+        {/* <h3>Upload a new image</h3>
         <input
           type="file"
           placeholder={clientImg}
           id="img"
           onChange={(e) => setClientImg(e.target.value)}
-        />
+        /> */}
         <h3>Update {initialName}'s information</h3>
         <input type="hidden" value={clientId} id="id" />
         <label htmlFor="name">Name</label>
@@ -107,7 +113,7 @@ function EditClientModal({
           placeholder={clientNotes}
           id="note"
           value={clientNotes}
-          onChange={(e) => setClientNote(e.target.value)}
+          onChange={(e) => setClientNotes(e.target.value)}
         />
         <label htmlFor="rate">Rate</label>
         <input
@@ -129,6 +135,15 @@ function EditClientModal({
           />
           <label htmlFor="hourly">Hourly</label>
         </div>
+
+        <label htmlFor="clientBalance">Balance</label>
+        <input
+          type="number"
+          placeholder={clientBalance}
+          id="clientBalance"
+          value={clientBalance}
+          onChange={(e) => setClientBalance(e.target.value)}
+        />
         <button>Submit</button>
       </form>
     </div>

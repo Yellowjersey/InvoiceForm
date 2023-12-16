@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import EditClientModal from './EditClientModal';
 
 export default function ClientCard({
@@ -10,14 +11,17 @@ export default function ClientCard({
   clientImg,
   clientRate,
   isHourly,
-  editClient,
-  setEditClient,
+  clients,
   setUpdatedClient,
   updatedClient,
   editedClient,
   setEditedClient,
+  clientBalance,
 }) {
+  const [editClient, setEditClient] = useState(false);
+
   function handleClientClick(e) {
+    console.log(clientId);
     if (e.target.className === 'clientCard') {
       setEditClient(!editClient);
     }
@@ -27,6 +31,7 @@ export default function ClientCard({
     <>
       {editClient ? (
         <EditClientModal
+          clients={clients}
           setEditedClient={setEditedClient}
           editedClient={editedClient}
           setUpdatedClient={setUpdatedClient}
@@ -41,8 +46,10 @@ export default function ClientCard({
           rate={clientRate}
           hour={isHourly}
           setEditClient={setEditClient}
+          clientBalance={clientBalance}
         />
       ) : null}
+
       <div
         className="clientCard"
         key={clientId}
@@ -73,6 +80,7 @@ export default function ClientCard({
               />
               <label htmlFor="isHourly">Hourly</label>
             </div> */}
+          <h4 className="clientBalance">Balance: $ {clientBalance}</h4>
         </div>
       </div>
     </>
