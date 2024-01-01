@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Modal from './Modal';
 import AddClientForm from './AddClientForm';
 
-export default function Navbar({ setClients }) {
+export default function Navbar({ setClients, user }) {
   const [showModal, setShowModal] = useState(false);
 
   function swapModal() {

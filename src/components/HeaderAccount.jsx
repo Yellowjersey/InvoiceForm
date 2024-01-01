@@ -2,7 +2,7 @@ import { MdKeyboardArrowDown } from 'react-icons/md';
 import Modal from './Modal';
 import SettingsModal from './SettingsModal';
 
-export default function HeaderAccount({ setShowModal, showModal }) {
+export default function HeaderAccount({ setShowModal, showModal, logout }) {
   function toggleModal() {
     setShowModal(!showModal);
   }
@@ -20,7 +20,7 @@ export default function HeaderAccount({ setShowModal, showModal }) {
         <Modal
           swapModal={toggleModal}
           className={'settingsModal'}
-          ModalForm={<SettingsModal swapModal={toggleModal} />}
+          ModalForm={<SettingsModal logout={logout} swapModal={toggleModal} />}
         />
       )}
       <div className="header-text-Container">

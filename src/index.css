@@ -311,6 +311,49 @@
   padding-left: 10px;
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100000;
+  background-color: white;
+}
+
+.settingsModalContent {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.settingsUsername {
+  font: 1.2rem;
+}
+
+.settingsEmail {
+  font: 1rem;
+}
+
+.settingsButton {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  background-color: #812f0e;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
 .add-client-form input:focus {
   outline: none;
   border: 1px solid #8d8a8a;
@@ -377,6 +420,129 @@
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   cursor: pointer;
+}
+
+.loginRegisterContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0px #8d8a8a93;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.loginRegisterTitle {
+  font-size: 2.5rem;
+  font-weight: 600;
+  cursor: default;
+  text-align: center;
+  width: 100%;
+}
+
+.loginRegisterContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.loginform {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 40px;
+  padding-top: 20px;
+}
+
+.registerform {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding-bottom: 40px;
+  padding-top: 20px;
+}
+
+.emailcontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.passwordcontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.confirmpasswordcontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.signInRegisterSubmitButton {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  background-color: #0e8118;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.signInRegisterSubmitButton:hover {
+  background-color: #0e8118;
+  box-shadow: 0 0 10px 0px #8d8a8a93;
+}
+
+.toggleRegisterLoginButton {
+  width: fit-content;
+  height: 40px;
+  border-radius: 15px;
+  border: 1px solid #e0e0e0;
+  background-color: #0e4481;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.toggleRegisterLoginButton:hover {
+  background-color: #0e4481;
+  box-shadow: 0 0 10px 0px #8d8a8a93;
+}
+
+.YardManagerLogo {
+  height: 200px;
+  width: 200px;
 }
 
 .checkBoxContainer {

@@ -1,18 +1,23 @@
 import { useRef } from 'react';
 
-export default function SettingsModal({ swapModal }) {
+export default function SettingsModal({ swapModal, logout }) {
   const modalRef = useRef();
   function handleClick(e) {
+    logout();
     if (e.target === modalRef.current) {
       swapModal(false);
     }
   }
 
   return (
-    <div>
-      <h1>Gavin Bradford</h1>
-      <h2>Bradfordgavin@gmail.com</h2>
-      <button onClick={(e) => handleClick(e)} ref={modalRef}>
+    <div className="settingsModalContent">
+      <h1 className="settingsUsername">Name: Gavin Bradford</h1>
+      <h2 className="settingsEmail">Email: Bradfordgavin@gmail.com</h2>
+      <button
+        onClick={(e) => handleClick(e)}
+        ref={modalRef}
+        className="settingsButton"
+      >
         Log Out
       </button>
     </div>
