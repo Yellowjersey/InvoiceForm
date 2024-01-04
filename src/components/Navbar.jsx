@@ -4,7 +4,12 @@ import { useState } from 'react';
 import Modal from './Modal';
 import AddClientForm from './AddClientForm';
 
-export default function Navbar({ setClients, user }) {
+export default function Navbar({
+  setClients,
+  clientDataQueryForUUID,
+  UUID,
+  setClientsUpdated,
+}) {
   const [showModal, setShowModal] = useState(false);
 
   function swapModal() {
@@ -36,6 +41,9 @@ export default function Navbar({ setClients, user }) {
               <AddClientForm
                 setClients={setClients}
                 closeModal={setShowModal}
+                UUID={UUID}
+                clientDataQueryForUUID={clientDataQueryForUUID}
+                setClientsUpdated={setClientsUpdated}
               />
             }
             swapModal={swapModal}

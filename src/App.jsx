@@ -14,13 +14,67 @@ import { MoonLoader } from 'react-spinners';
 import { Toast } from 'react-bootstrap';
 
 function App() {
-  const [clients, setClients] = useState([]);
+  const [clients, setClients] = useState(null);
   const [user, setUser] = useState(null);
   const [notLoggedIn, setNotLoggedIn] = useState(user === null ? true : false);
   const [isLoginPage, setIsLoginPage] = useState(true);
   const [isLoggingOutandIn, setIsLoggingOutandIn] = useState(false);
   const [UUID, setUUID] = useState('');
   const [userAccount, setUserAccount] = useState(user);
+  const [clientsUpdated, setClientsUpdated] = useState(false);
+
+  useEffect(() => {
+    supabase
+      .from('Users')
+      .select('*')
+      .then((users) => {
+        const user = users.data.find((user) => user.id === userAccount?.id);
+        if (user) {
+          setUUID(user.id);
+          setUserAccount(user);
+        }
+      });
+  }, [userAccount]);
+
+  useEffect(() => {
+    async function clientQuery() {
+      const res = await clientDataQueryForUUID();
+      setClients(res);
+      setClientsUpdated(false);
+    }
+
+    clientQuery();
+  }, [clientsUpdated]);
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      if (UUID) {
+        const results = await clientDataQueryForUUID();
+        setClients(results);
+      }
+    };
+
+    fetchClients();
+  }, [UUID]);
+
+  useEffect(() => {
+    async function clientQuery() {
+      const res = await clientDataQueryForUUID();
+    }
+    clientQuery();
+  }, [clients]);
+
+  async function clientDataQueryForUUID() {
+    const { data, error } = await supabase
+      .from('Clients')
+      .select('*')
+      .eq('user_UUID', UUID);
+    if (error) {
+      console.error('Error fetching client data:', error);
+    }
+
+    return data;
+  }
 
   const subscription = supabase.auth.onAuthStateChange((event, session) => {
     if (event === 'SIGNED_IN') {
@@ -32,20 +86,6 @@ function App() {
       setUserAccount(null);
     }
   });
-
-  useEffect(() => {
-    async function pushData() {
-      const { data: userProfile, error: userError } = await supabase
-        .from('Users')
-        .insert([
-          {
-            id: userAccount?.id,
-            email: userAccount?.email,
-            user_image: `https://picsum.photos/${Math.random() * 100}`,
-          },
-        ]);
-    }
-  }, [userAccount]);
 
   function showToastMessage(type) {
     switch (type) {
@@ -142,7 +182,6 @@ function App() {
     supabase.auth
       .signOut()
       .then(() => {
-        console.log('Successfully signed out');
         setUser(null);
         showToastMessage('signOut');
         setIsLoggingOutandIn(false);
@@ -173,22 +212,6 @@ function App() {
         console.error('Error signing in:', signInError);
         return;
       }
-      console.log(session);
-      // if (session && session.user) {
-      const { data: userProfile, error: userError } = await supabase
-        .from('Users')
-        .insert([
-          {
-            id: userAccount?.id,
-            email: userAccount?.email,
-            user_image: `https://picsum.photos/${Math.random() * 100}`,
-          },
-        ]);
-
-      if (userError) {
-        console.error('Error inserting user:', userError);
-      }
-      // }
 
       setIsLoggingOutandIn(false);
 
@@ -238,20 +261,17 @@ function App() {
           </div>
         ) : (
           <div className="Applayout">
-            <Sidebar setClients={setClients} user={user} />
+            <Sidebar
+              setClients={setClients}
+              user={user}
+              UUID={UUID}
+              userAccount={userAccount}
+              clientDataQueryForUUID={clientDataQueryForUUID}
+              setClientsUpdated={setClientsUpdated}
+            />
             <div className="content-container">
-              <Header logout={logout} />
+              <Header logout={logout} userAccount={userAccount} />
               <div className="">
-                {/* {notLoggedIn ? (
-              <Routes>
-              <Route
-              path="/login-register"
-              element={
-                
-              }
-              />
-              </Routes>
-            ) : ( */}
                 <Routes>
                   <Route exact path="/" element={<Home clients={clients} />} />
                   <Route path="/createinvoice" element={<CreateInvoice />} />

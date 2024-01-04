@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react';
 import ClientCard from '../components/ClientCard';
 
 export default function Clients({ clients, setClients }) {
-  const [updatedClient, setUpdatedClient] = useState([...clients]);
+  const [updatedClient, setUpdatedClient] = useState([]);
   const [editedClient, setEditedClient] = useState([]);
 
-  useEffect(() => {
-    setClients([...updatedClient]);
-  }, [updatedClient]);
+  // useEffect(() => {
+  //   setClients([...updatedClient]);
+  // }, [updatedClient]);
 
   return (
     <div className="clients">
-      {clients.length > 0 ? (
+      {clients?.length > 0 ? (
         clients.map((client) => {
           return (
             <ClientCard
@@ -20,17 +20,17 @@ export default function Clients({ clients, setClients }) {
               setEditedClient={setEditedClient}
               updatedClient={updatedClient}
               setUpdatedClient={setUpdatedClient}
-              clientId={client.clientId}
-              key={client.clientId}
-              clientName={client.clientName}
-              clientAddress={client.clientAddress}
-              clientPhone={client.clientPhone}
-              clientEmail={client.clientEmail}
-              clientNotes={client.clientNotes}
-              clientImg={client.clientImg}
-              clientRate={client.clientRate}
-              isHourly={client.isHourly}
-              clientBalance={client.clientBalance}
+              clientId={client.client_UUID}
+              key={client.client_UUID}
+              clientName={client.client_name}
+              clientAddress={client.client_address}
+              clientPhone={client.client_phone}
+              clientEmail={client.client_email}
+              clientNotes={client.client_notes}
+              clientImg={client.client_image}
+              clientRate={client.client_rate}
+              isHourly={client.is_hourly}
+              clientBalance={client.client_balance}
             />
           );
         })

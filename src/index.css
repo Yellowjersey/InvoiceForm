@@ -1,6 +1,8 @@
 .Applayout {
   display: grid;
   grid-template-columns: 1fr 5fr;
+  overflow: hidden;
+  scroll-behavior: none;
 }
 
 * {

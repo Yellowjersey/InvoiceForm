@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import HeaderAccount from './HeaderAccount';
 
-export default function Header({ logout }) {
+export default function Header({ logout, userAccount }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -10,6 +10,7 @@ export default function Header({ logout }) {
         logout={logout}
         setShowModal={setShowModal}
         showModal={showModal}
+        userAccount={userAccount}
       />
     </div>
   );
