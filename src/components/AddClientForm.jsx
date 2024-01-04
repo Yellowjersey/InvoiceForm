@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function AddClientForm({ setClients, closeModal }) {
   const modalRef = useRef();
@@ -14,7 +15,7 @@ export default function AddClientForm({ setClients, closeModal }) {
       clientNotes: form.clientNotes.value,
       clientImg: 'https://picsum.photos/200',
       // clientImg: form.clientImage.value,
-      clientId: Math.random(),
+      clientId: uuidv4(),
       clientRate: form.clientRate.value,
       isHourly: form.isHourly.checked,
       clientBalance: 0,

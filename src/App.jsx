@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import CreateInvoice from './pages/CreateInvoice';
@@ -19,10 +19,33 @@ function App() {
   const [notLoggedIn, setNotLoggedIn] = useState(user === null ? true : false);
   const [isLoginPage, setIsLoginPage] = useState(true);
   const [isLoggingOutandIn, setIsLoggingOutandIn] = useState(false);
+  const [UUID, setUUID] = useState('');
+  const [userAccount, setUserAccount] = useState(user);
 
-  supabase.auth.onAuthStateChange((event, session) => {
-    setUser(session ? session.user : null);
+  const subscription = supabase.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_IN') {
+      setUser(session.user);
+      setUserAccount(session.user);
+    }
+    if (event === 'SIGNED_OUT') {
+      setUser(null);
+      setUserAccount(null);
+    }
   });
+
+  useEffect(() => {
+    async function pushData() {
+      const { data: userProfile, error: userError } = await supabase
+        .from('Users')
+        .insert([
+          {
+            id: userAccount?.id,
+            email: userAccount?.email,
+            user_image: `https://picsum.photos/${Math.random() * 100}`,
+          },
+        ]);
+    }
+  }, [userAccount]);
 
   function showToastMessage(type) {
     switch (type) {
@@ -97,21 +120,37 @@ function App() {
     const { data, error } = await supabase.auth.signUp({
       email: newUser.email,
       password: newUser.password,
+      data: {
+        id: newUser.UUID,
+      },
+
       options: {
         emailRedirectTo: 'https//example.com/welcome',
       },
       then: showToastMessage('signUp'),
     });
+
+    if (newUserProfileError) {
+      console.error('Error creating new user:', newUserProfileError);
+    }
+
     setIsLoginPage(true);
   }
 
   async function logout() {
     setIsLoggingOutandIn(true);
-    await supabase.auth.signOut();
-
-    setUser(null);
-    showToastMessage('signOut');
-    setIsLoggingOutandIn(false);
+    supabase.auth
+      .signOut()
+      .then(() => {
+        console.log('Successfully signed out');
+        setUser(null);
+        showToastMessage('signOut');
+        setIsLoggingOutandIn(false);
+      })
+      .catch((error) => {
+        console.error('Error signing out:', error);
+        setIsLoggingOutandIn(false);
+      });
   }
 
   let error = null;
@@ -124,35 +163,52 @@ function App() {
       user.email !== '' &&
       user.password !== ''
     ) {
-      const { data, error: signInError } =
+      const { user: session, error: signInError } =
         await supabase.auth.signInWithPassword({
           email: user.email,
           password: user.password,
         });
 
-      error = signInError;
-      if (!error) {
-        showToastMessage('signIn');
+      if (signInError) {
+        console.error('Error signing in:', signInError);
+        return;
       }
-    }
-    setIsLoggingOutandIn(false);
+      console.log(session);
+      // if (session && session.user) {
+      const { data: userProfile, error: userError } = await supabase
+        .from('Users')
+        .insert([
+          {
+            id: userAccount?.id,
+            email: userAccount?.email,
+            user_image: `https://picsum.photos/${Math.random() * 100}`,
+          },
+        ]);
 
-    if (error && error.message === 'Invalid login credentials.') {
-      showToastMessage('invalidcreditials');
-      return;
-    } else if (user.email === '') {
-      showToastMessage('emailEmpty');
-      return;
-    } else if (user.password === '') {
-      showToastMessage('passwordEmpty');
-      return;
-    } else if (error && error.message === 'Email not confirmed') {
-      showToastMessage('signUp');
-      return;
-    }
+      if (userError) {
+        console.error('Error inserting user:', userError);
+      }
+      // }
 
-    if (error) {
-      showToastMessage();
+      setIsLoggingOutandIn(false);
+
+      if (error && error.message === 'Invalid login credentials.') {
+        showToastMessage('invalidcreditials');
+        return;
+      } else if (user.email === '') {
+        showToastMessage('emailEmpty');
+        return;
+      } else if (user.password === '') {
+        showToastMessage('passwordEmpty');
+        return;
+      } else if (error && error.message === 'Email not confirmed') {
+        showToastMessage('signUp');
+        return;
+      }
+
+      if (error) {
+        showToastMessage();
+      }
     }
   }
 

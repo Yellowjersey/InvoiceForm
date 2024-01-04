@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import { supabase } from '../supabase/supabase';
 
 function LoginRegisterPage({
   isLoginPage,
@@ -11,9 +13,13 @@ function LoginRegisterPage({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [UUID, setUUID] = useState('');
 
   function handleLoginRegisterToggle() {
     setIsLoginPage(!isLoginPage);
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
   }
 
   function handleLoginSubmit(e) {
@@ -25,11 +31,12 @@ function LoginRegisterPage({
     };
 
     signInWithEmail(userInfo);
+
     setEmail('');
     setPassword('');
   }
 
-  function handleRegisterSubmit(e) {
+  async function handleRegisterSubmit(e) {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert('Passwords do not match');
@@ -42,12 +49,16 @@ function LoginRegisterPage({
       return;
     }
 
+    setUUID(uuidv4());
+
     const newUser = {
       email,
       password,
       confirmPassword,
+      UUID,
     };
     signUpNewUser(newUser);
+
     setEmail('');
     setPassword('');
     setConfirmPassword('');
