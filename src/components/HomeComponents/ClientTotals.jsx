@@ -1,7 +1,7 @@
 import HomeClientCards from './HomeClientCards';
 
 export default function ClientTotals({ clients }) {
-  return clients.map((client) => {
+  return clients?.map((client) => {
     return (
       <HomeClientCards
         key={client.client_UUID}

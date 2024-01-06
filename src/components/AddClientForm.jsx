@@ -7,6 +7,7 @@ export default function AddClientForm({
   closeModal,
   UUID,
   setClientsUpdated,
+  setClients,
 }) {
   const modalRef = useRef();
 
@@ -53,12 +54,11 @@ export default function AddClientForm({
         client.client_email !== res.client_email &&
         client.client_UUID !== res.client_UUID
       ) {
-        await insertClient();
+        await insertClient().then(setClientsUpdated(false));
       }
 
-      console.log(client);
+      await setClients(res);
 
-      await clientDataQueryForUUID();
       form.reset();
 
       if (event.target === modalRef.current) {

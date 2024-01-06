@@ -8,6 +8,9 @@ export default function Sidebar({
   userAccount,
   clientDataQueryForUUID,
   setClientsUpdated,
+  showModal,
+  setShowModal,
+  swapModal,
 }) {
   useEffect(() => {
     if (UUID === undefined || UUID === null) return;
@@ -31,10 +34,13 @@ export default function Sidebar({
   return (
     <div className="sidebar">
       <Navbar
-        setClients={setClients}
         UUID={UUID}
         clientDataQueryForUUID={clientDataQueryForUUID}
         setClientsUpdated={setClientsUpdated}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        swapModal={swapModal}
+        setClients={setClients}
       />
     </div>
   );

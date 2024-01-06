@@ -5,17 +5,14 @@ import Modal from './Modal';
 import AddClientForm from './AddClientForm';
 
 export default function Navbar({
-  setClients,
   clientDataQueryForUUID,
   UUID,
   setClientsUpdated,
+  showModal,
+  setShowModal,
+  swapModal,
+  setClients,
 }) {
-  const [showModal, setShowModal] = useState(false);
-
-  function swapModal() {
-    setShowModal(!showModal);
-  }
-
   return (
     <nav className="navbar">
       <div className="logo-container">
@@ -39,11 +36,11 @@ export default function Navbar({
             className={'modal-content'}
             ModalForm={
               <AddClientForm
-                setClients={setClients}
                 closeModal={setShowModal}
                 UUID={UUID}
                 clientDataQueryForUUID={clientDataQueryForUUID}
                 setClientsUpdated={setClientsUpdated}
+                setClients={setClients}
               />
             }
             swapModal={swapModal}

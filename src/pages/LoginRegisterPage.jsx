@@ -56,6 +56,8 @@ function LoginRegisterPage({
       password,
       confirmPassword,
       UUID,
+      companyName,
+      UserName,
     };
     signUpNewUser(newUser);
 

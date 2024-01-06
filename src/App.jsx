@@ -16,53 +16,96 @@ import { Toast } from 'react-bootstrap';
 function App() {
   const [clients, setClients] = useState(null);
   const [user, setUser] = useState(null);
-  const [notLoggedIn, setNotLoggedIn] = useState(user === null ? true : false);
+
   const [isLoginPage, setIsLoginPage] = useState(true);
   const [isLoggingOutandIn, setIsLoggingOutandIn] = useState(false);
   const [UUID, setUUID] = useState('');
   const [userAccount, setUserAccount] = useState(user);
   const [clientsUpdated, setClientsUpdated] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [editClient, setEditClient] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
+    setIsLoggingOutandIn(true);
     supabase
       .from('Users')
       .select('*')
       .then((users) => {
-        const user = users.data.find((user) => user.id === userAccount?.id);
-        if (user) {
-          setUUID(user.id);
-          setUserAccount(user);
+        const loggedInAccount = users.data.find((user) => user.id === UUID);
+
+        if (loggedInAccount) {
+          setUserAccount(loggedInAccount);
         }
+
+        // Introduce a delay before setting loading to false
+        setTimeout(() => {
+          setIsLoggingOutandIn(false);
+        }, 1000); // 1000ms = 1 second
       });
-  }, [userAccount]);
+  }, [user]);
+
+  function swapModal() {
+    setShowModal(!showModal);
+  }
 
   useEffect(() => {
     async function clientQuery() {
       const res = await clientDataQueryForUUID();
       setClients(res);
-      setClientsUpdated(false);
     }
 
     clientQuery();
-  }, [clientsUpdated]);
+  }, [clientsUpdated, user]);
+
+  // useEffect(() => {
+  //   setClientsUpdated(false);
+  // }, [clients]);
+
+  // useEffect(() => {
+  //   const fetchClients = async () => {
+  //     if (UUID) {
+  //       const results = await clientDataQueryForUUID();
+  //       setClients(results);
+  //     }
+  //   };
+
+  //   fetchClients();
+  // }, [UUID]);
 
   useEffect(() => {
-    const fetchClients = async () => {
-      if (UUID) {
-        const results = await clientDataQueryForUUID();
-        setClients(results);
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === 'SIGNED_IN') {
+          setUser(session.user);
+          setUUID(session.user.id);
+
+          if (!userAccount) {
+            getUserAccount(session.user);
+          }
+        }
       }
-    };
-
-    fetchClients();
-  }, [UUID]);
+    );
+  }, []);
 
   useEffect(() => {
-    async function clientQuery() {
-      const res = await clientDataQueryForUUID();
+    if (!UUID) return;
+
+    async function pushData() {
+      const { data: userProfile, error: userError } = await supabase
+        .from('Users')
+        .insert([
+          {
+            id: UUID,
+            email: userAccount?.email,
+            user_image: `https://picsum.photos/200`,
+          },
+        ]);
     }
-    clientQuery();
-  }, [clients]);
+    if (UUID !== undefined && UUID !== null) {
+      pushData();
+    }
+  }, [UUID]);
 
   async function clientDataQueryForUUID() {
     const { data, error } = await supabase
@@ -76,16 +119,25 @@ function App() {
     return data;
   }
 
-  const subscription = supabase.auth.onAuthStateChange((event, session) => {
-    if (event === 'SIGNED_IN') {
-      setUser(session.user);
-      setUserAccount(session.user);
-    }
-    if (event === 'SIGNED_OUT') {
-      setUser(null);
-      setUserAccount(null);
-    }
-  });
+  // const subscription = supabase.auth.onAuthStateChange((event, session) => {
+  //   console.log(event);
+  //   if (event === 'SIGNED_IN') {
+  //     setUser(session.user);
+  //     setUUID(session.user.id);
+
+  //     // setUserAccount(session.user);
+  //     getUserAccount(session.user);
+  //   }
+  //   if (event === 'SIGNED_OUT') {
+  //     setUser(null);
+  //     setUserAccount('');
+  //     setUUID('');
+  //   }
+  // });
+
+  async function getUserAccount(session) {
+    if (session.user === null) return;
+  }
 
   function showToastMessage(type) {
     switch (type) {
@@ -185,6 +237,9 @@ function App() {
         setUser(null);
         showToastMessage('signOut');
         setIsLoggingOutandIn(false);
+
+        setUserAccount('');
+        setUUID('');
       })
       .catch((error) => {
         console.error('Error signing out:', error);
@@ -208,6 +263,10 @@ function App() {
           password: user.password,
         });
 
+      // if (!signInError) {
+      //   setUser(session.user);
+      //   setUUID(session.user.id);
+      // }
       if (signInError) {
         console.error('Error signing in:', signInError);
         return;
@@ -262,27 +321,40 @@ function App() {
         ) : (
           <div className="Applayout">
             <Sidebar
-              setClients={setClients}
               user={user}
               UUID={UUID}
               userAccount={userAccount}
               clientDataQueryForUUID={clientDataQueryForUUID}
               setClientsUpdated={setClientsUpdated}
+              showModal={showModal}
+              setShowModal={setShowModal}
+              swapModal={swapModal}
+              setClients={setClients}
             />
             <div className="content-container">
               <Header logout={logout} userAccount={userAccount} />
-              <div className="">
+              <div className="center-content">
                 <Routes>
                   <Route exact path="/" element={<Home clients={clients} />} />
                   <Route path="/createinvoice" element={<CreateInvoice />} />
                   <Route
                     path="/clients"
                     element={
-                      <Clients clients={clients} setClients={setClients} />
+                      <Clients
+                        clients={clients}
+                        showModal={showModal}
+                        setShowModal={setShowModal}
+                        swapModal={swapModal}
+                        clientDataQueryForUUID={clientDataQueryForUUID}
+                        UUID={UUID}
+                        setClientsUpdated={setClientsUpdated}
+                        editClient={editClient}
+                        setEditClient={setEditClient}
+                        setClients={setClients}
+                      />
                     }
                   />
                 </Routes>
-                {/* )} */}
               </div>
             </div>
             <ToastContainer />
