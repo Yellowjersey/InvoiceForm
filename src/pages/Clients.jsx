@@ -39,7 +39,7 @@ export default function Clients({
   }
 
   return (
-    <div className="clients-wrapper">
+    <div>
       {clients?.length > 0 ? (
         <div className="clients">
           {clients.map((client) => {

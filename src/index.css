@@ -14,6 +14,18 @@
   display: grid;
   grid-template-rows: 0.5fr 5fr;
 }
+.createinvoice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.app {
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
 
 .clients {
   display: grid;
@@ -437,6 +449,154 @@
   font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
+}
+
+.invoice-form-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  flex-direction: column;
+}
+
+.invoice-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  width: 500px;
+  height: fit-content;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0px #8d8a8a93;
+}
+
+.invoice-form-content {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-Datepicker {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.form-invoice-reason {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+
+  align-items: center;
+}
+
+.form-client-title {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: center;
+}
+
+.form-extra-title {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: center;
+}
+
+.form-amount {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: center;
+}
+.extraLabel {
+  display: flex;
+  justify-content: start;
+
+  align-items: center;
+  text-wrap: nowrap;
+}
+
+.form-extra-charge {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  align-items: center;
+}
+
+.extraCharge {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  text-wrap: nowrap;
+}
+
+.extraButton {
+  color: white;
+  background-color: rgb(0, 60, 128);
+  border: none;
+  border-radius: 30px;
+  padding: 5px;
+}
+
+.formSubmitButton {
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background-color: #0e8118;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+#Extra-charge {
+  width: 100%;
+  margin-left: 16px;
+}
+#invoiceReason {
+  width: 100%;
+}
+
+#Extra-label {
+  width: 100%;
+}
+
+#date {
+  width: 100%;
+  border-radius: 30px;
+  border: 1px solid #505050;
+  padding-left: 10px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+#Client {
+  width: 100%;
+  border-radius: 30px;
+  border: 1px solid #505050;
+  padding-left: 10px;
+  cursor: pointer;
+  margin-left: 30px;
+}
+
+#amount {
+  width: 100%;
+  margin-left: 18px;
 }
 
 .header {

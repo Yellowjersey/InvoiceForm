@@ -27,7 +27,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    setIsLoggingOutandIn(true);
+    // setIsLoggingOutandIn(true);
     supabase
       .from('Users')
       .select('*')
@@ -38,40 +38,21 @@ function App() {
           setUserAccount(loggedInAccount);
         }
 
-        // Introduce a delay before setting loading to false
-        setTimeout(() => {
-          setIsLoggingOutandIn(false);
-        }, 1000); // 1000ms = 1 second
+        return supabase.from('Clients').select('*');
+      })
+      .then((clients) => {
+        const loggedInClients = clients.data.filter(
+          (client) => client.user_UUID === UUID
+        );
+
+        setClients(loggedInClients);
+        // setIsLoggingOutandIn(false);
       });
   }, [user]);
 
   function swapModal() {
     setShowModal(!showModal);
   }
-
-  useEffect(() => {
-    async function clientQuery() {
-      const res = await clientDataQueryForUUID();
-      setClients(res);
-    }
-
-    clientQuery();
-  }, [clientsUpdated, user]);
-
-  // useEffect(() => {
-  //   setClientsUpdated(false);
-  // }, [clients]);
-
-  // useEffect(() => {
-  //   const fetchClients = async () => {
-  //     if (UUID) {
-  //       const results = await clientDataQueryForUUID();
-  //       setClients(results);
-  //     }
-  //   };
-
-  //   fetchClients();
-  // }, [UUID]);
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
@@ -118,22 +99,6 @@ function App() {
 
     return data;
   }
-
-  // const subscription = supabase.auth.onAuthStateChange((event, session) => {
-  //   console.log(event);
-  //   if (event === 'SIGNED_IN') {
-  //     setUser(session.user);
-  //     setUUID(session.user.id);
-
-  //     // setUserAccount(session.user);
-  //     getUserAccount(session.user);
-  //   }
-  //   if (event === 'SIGNED_OUT') {
-  //     setUser(null);
-  //     setUserAccount('');
-  //     setUUID('');
-  //   }
-  // });
 
   async function getUserAccount(session) {
     if (session.user === null) return;
@@ -257,16 +222,16 @@ function App() {
       user.email !== '' &&
       user.password !== ''
     ) {
-      const { user: session, error: signInError } =
-        await supabase.auth.signInWithPassword({
+      const { user: session, error: signInError } = await supabase.auth
+        .signInWithPassword({
           email: user.email,
           password: user.password,
-        });
+        })
+        .then(showToastMessage('signIn'));
 
-      // if (!signInError) {
-      //   setUser(session.user);
-      //   setUUID(session.user.id);
-      // }
+      if (session) {
+        setUUID(session.id);
+      }
       if (signInError) {
         console.error('Error signing in:', signInError);
         return;
@@ -296,7 +261,8 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div className="app">
+        <ToastContainer />
         {isLoggingOutandIn && (
           <div className="loading">
             <MoonLoader
@@ -316,7 +282,6 @@ function App() {
               signInWithEmail={signInWithEmail}
               showToastMessage={showToastMessage}
             />
-            <ToastContainer />
           </div>
         ) : (
           <div className="Applayout">
@@ -336,7 +301,10 @@ function App() {
               <div className="center-content">
                 <Routes>
                   <Route exact path="/" element={<Home clients={clients} />} />
-                  <Route path="/createinvoice" element={<CreateInvoice />} />
+                  <Route
+                    path="/createinvoice"
+                    element={<CreateInvoice clients={clients} />}
+                  />
                   <Route
                     path="/clients"
                     element={
@@ -357,7 +325,6 @@ function App() {
                 </Routes>
               </div>
             </div>
-            <ToastContainer />
           </div>
         )}
       </div>
