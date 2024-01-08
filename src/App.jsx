@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+  useNavigate,
+} from 'react-router-dom';
 import Home from './pages/Home';
 import CreateInvoice from './pages/CreateInvoice';
 import Header from './components/Header';
@@ -12,6 +18,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MoonLoader } from 'react-spinners';
 import { Toast } from 'react-bootstrap';
+import AppLayout from './components/AppLayout';
+import { replace } from 'formik';
 
 function App() {
   const [clients, setClients] = useState(null);
@@ -20,11 +28,12 @@ function App() {
   const [isLoginPage, setIsLoginPage] = useState(true);
   const [isLoggingOutandIn, setIsLoggingOutandIn] = useState(false);
   const [UUID, setUUID] = useState('');
-  const [userAccount, setUserAccount] = useState(user);
+  const [userAccount, setUserAccount] = useState('');
   const [clientsUpdated, setClientsUpdated] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [editClient, setEditClient] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // setIsLoggingOutandIn(true);
@@ -33,6 +42,10 @@ function App() {
       .select('*')
       .then((users) => {
         const loggedInAccount = users.data.find((user) => user.id === UUID);
+
+        if (!loggedInAccount) {
+          pushData();
+        }
 
         if (loggedInAccount) {
           setUserAccount(loggedInAccount);
@@ -48,45 +61,50 @@ function App() {
         setClients(loggedInClients);
         // setIsLoggingOutandIn(false);
       });
+  }, [UUID]);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/', { replace: true });
+    }
   }, [user]);
+
+  // Inside your component
 
   function swapModal() {
     setShowModal(!showModal);
   }
 
-  useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === 'SIGNED_IN') {
-          setUser(session.user);
-          setUUID(session.user.id);
+  async function pushData() {
+    const { data: userProfile, error: userError } = await supabase
+      .from('Users')
+      .insert([
+        {
+          id: UUID,
+          email: userAccount?.email,
+          user_image: `https://picsum.photos/200`,
+        },
+      ]);
+  }
 
-          if (!userAccount) {
-            getUserAccount(session.user);
-          }
-        }
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   if (!UUID) return;
 
-  useEffect(() => {
-    if (!UUID) return;
-
-    async function pushData() {
-      const { data: userProfile, error: userError } = await supabase
-        .from('Users')
-        .insert([
-          {
-            id: UUID,
-            email: userAccount?.email,
-            user_image: `https://picsum.photos/200`,
-          },
-        ]);
-    }
-    if (UUID !== undefined && UUID !== null) {
-      pushData();
-    }
-  }, [UUID]);
+  //   async function pushData() {
+  //     const { data: userProfile, error: userError } = await supabase
+  //       .from('Users')
+  //       .insert([
+  //         {
+  //           id: UUID,
+  //           email: userAccount?.email,
+  //           user_image: `https://picsum.photos/200`,
+  //         },
+  //       ]);
+  //   }
+  //   if (UUID !== undefined && UUID !== null && user.id !== UUID) {
+  //     pushData();
+  //   }
+  // }, [UUID]);
 
   async function clientDataQueryForUUID() {
     const { data, error } = await supabase
@@ -100,9 +118,9 @@ function App() {
     return data;
   }
 
-  async function getUserAccount(session) {
-    if (session.user === null) return;
-  }
+  // async function getUserAccount(session) {
+  //   if (session.user === null) return;
+  // }
 
   function showToastMessage(type) {
     switch (type) {
@@ -194,98 +212,52 @@ function App() {
     setIsLoginPage(true);
   }
 
-  async function logout() {
-    setIsLoggingOutandIn(true);
-    supabase.auth
-      .signOut()
-      .then(() => {
-        setUser(null);
-        showToastMessage('signOut');
-        setIsLoggingOutandIn(false);
-
-        setUserAccount('');
-        setUUID('');
-      })
-      .catch((error) => {
-        console.error('Error signing out:', error);
-        setIsLoggingOutandIn(false);
-      });
-  }
-
-  let error = null;
-
-  async function signInWithEmail(user) {
-    setIsLoggingOutandIn(true);
-    if (
-      user !== null &&
-      user !== undefined &&
-      user.email !== '' &&
-      user.password !== ''
-    ) {
-      const { user: session, error: signInError } = await supabase.auth
-        .signInWithPassword({
-          email: user.email,
-          password: user.password,
-        })
-        .then(showToastMessage('signIn'));
-
-      if (session) {
-        setUUID(session.id);
-      }
-      if (signInError) {
-        console.error('Error signing in:', signInError);
-        return;
-      }
-
-      setIsLoggingOutandIn(false);
-
-      if (error && error.message === 'Invalid login credentials.') {
-        showToastMessage('invalidcreditials');
-        return;
-      } else if (user.email === '') {
-        showToastMessage('emailEmpty');
-        return;
-      } else if (user.password === '') {
-        showToastMessage('passwordEmpty');
-        return;
-      } else if (error && error.message === 'Email not confirmed') {
-        showToastMessage('signUp');
-        return;
-      }
-
-      if (error) {
-        showToastMessage();
-      }
-    }
-  }
+  // let error = null;
 
   return (
-    <Router>
-      <div className="app">
-        <ToastContainer />
-        {isLoggingOutandIn && (
-          <div className="loading">
-            <MoonLoader
-              size={150}
-              color={'#12bc1b'}
-              loading={isLoggingOutandIn}
-            />
-          </div>
-        )}
-        {user === null ? (
-          <div>
+    <div className="app">
+      <ToastContainer />
+      <Routes>
+        <Route
+          index
+          path="/"
+          element={
             <LoginRegisterPage
               isLoginPage={isLoginPage}
               setIsLoginPage={setIsLoginPage}
               setUser={setUser}
               signUpNewUser={signUpNewUser}
-              signInWithEmail={signInWithEmail}
+              // signInWithEmail={signInWithEmail}
               showToastMessage={showToastMessage}
+              setUUID={setUUID}
+              setIsLoggingOutandIn={setIsLoggingOutandIn}
             />
+          }
+        />
+        {/* {isLoggingOutandIn && (
+          <div className="loading">
+          <MoonLoader
+          size={150}
+          color={'#12bc1b'}
+          loading={isLoggingOutandIn}
+          />
           </div>
-        ) : (
-          <div className="Applayout">
-            <Sidebar
+        )} */}
+        {/* {user === null ? (
+          <div>
+          <LoginRegisterPage
+          isLoginPage={isLoginPage}
+          setIsLoginPage={setIsLoginPage}
+          setUser={setUser}
+          signUpNewUser={signUpNewUser}
+          signInWithEmail={signInWithEmail}
+          showToastMessage={showToastMessage}
+          />
+          </div> */}
+        <Route
+          path={`/${UUID}/*`}
+          element={
+            <AppLayout
               user={user}
               UUID={UUID}
               userAccount={userAccount}
@@ -295,40 +267,21 @@ function App() {
               setShowModal={setShowModal}
               swapModal={swapModal}
               setClients={setClients}
+              setEditClient={setEditClient}
+              editClient={editClient}
+              clients={clients}
+              // getUserAccount={getUserAccount}
+              setUUID={setUUID}
+              setUser={setUser}
+              setIsLoggingOutandIn={setIsLoggingOutandIn}
+              setUserAccount={setUserAccount}
+              showToastMessage={showToastMessage}
             />
-            <div className="content-container">
-              <Header logout={logout} userAccount={userAccount} />
-              <div className="center-content">
-                <Routes>
-                  <Route exact path="/" element={<Home clients={clients} />} />
-                  <Route
-                    path="/createinvoice"
-                    element={<CreateInvoice clients={clients} />}
-                  />
-                  <Route
-                    path="/clients"
-                    element={
-                      <Clients
-                        clients={clients}
-                        showModal={showModal}
-                        setShowModal={setShowModal}
-                        swapModal={swapModal}
-                        clientDataQueryForUUID={clientDataQueryForUUID}
-                        UUID={UUID}
-                        setClientsUpdated={setClientsUpdated}
-                        editClient={editClient}
-                        setEditClient={setEditClient}
-                        setClients={setClients}
-                      />
-                    }
-                  />
-                </Routes>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </Router>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { supabase } from '../supabase/supabase';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function LoginRegisterPage({
   isLoginPage,
@@ -9,11 +10,69 @@ function LoginRegisterPage({
   signUpNewUser,
   signInWithEmail,
   showToastMessage,
+  setIsLoggingOutandIn,
+  setUUID,
 }) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [UUID, setUUID] = useState('');
+
+  async function signInWithEmail(user) {
+    setIsLoggingOutandIn(true);
+    if (
+      user !== null &&
+      user !== undefined &&
+      user.email !== '' &&
+      user.password !== ''
+    ) {
+      // const { user: session, error: signInError } =
+      //   await supabase.auth.signInWithPassword({
+      //     email: user.email,
+      //     password: user.password,
+      //   });
+
+      const response = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: user.password,
+      });
+
+      const { user: session_user, error: signInError } = response.data;
+
+      if (signInError) {
+        console.error('Error signing in:', signInError);
+        setIsLoggingOutandIn(false);
+        return;
+      }
+
+      if (session_user) {
+        setUser(session_user);
+        setUUID(session_user?.id);
+        navigate(`/${session_user.id}/home`, { replace: true });
+        showToastMessage('signIn');
+      }
+
+      setIsLoggingOutandIn(false);
+
+      if (signInError && signInError.message === 'Invalid login credentials.') {
+        showToastMessage('invalidcreditials');
+        return;
+      } else if (user.email === '') {
+        showToastMessage('emailEmpty');
+        return;
+      } else if (user.password === '') {
+        showToastMessage('passwordEmpty');
+        return;
+      } else if (signInError && signInError.message === 'Email not confirmed') {
+        showToastMessage('signUp');
+        return;
+      }
+
+      if (signInError) {
+        showToastMessage();
+      }
+    }
+  }
 
   function handleLoginRegisterToggle() {
     setIsLoginPage(!isLoginPage);
@@ -49,13 +108,10 @@ function LoginRegisterPage({
       return;
     }
 
-    setUUID(uuidv4());
-
     const newUser = {
       email,
       password,
       confirmPassword,
-      UUID,
       companyName,
       UserName,
     };

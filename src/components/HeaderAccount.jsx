@@ -1,11 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import Modal from './Modal';
 import SettingsModal from './SettingsModal';
+import { supabase } from '../supabase/supabase';
+import { useNavigate } from 'react-router-dom';
 
-function HeaderAccount({ setShowModal, showModal, logout, userAccount }) {
+function HeaderAccount({
+  setShowModal,
+  showModal,
+  logout,
+  userAccount,
+  setUUID,
+  setUser,
+  setIsLoggingOutandIn,
+  setUserAccount,
+  showToastMessage,
+}) {
+  const [shouldLogout, setShouldLogout] = useState(false);
+  const navigate = useNavigate();
+
   function toggleModal() {
     setShowModal(!showModal);
+  }
+
+  // Inside your component
+
+  useEffect(() => {
+    if (shouldLogout) {
+      navigate('/login', { replace: true });
+    }
+  }, [shouldLogout]);
+
+  async function logout() {
+    setIsLoggingOutandIn(true);
+    supabase.auth
+      .signOut()
+      .then(() => {
+        setUser(null);
+        showToastMessage('signOut');
+        setIsLoggingOutandIn(false);
+        setShouldLogout(true);
+        setUserAccount('');
+        setUUID('');
+      })
+      .catch((error) => {
+        console.error('Error signing out:', error);
+        setIsLoggingOutandIn(false);
+      });
   }
 
   const uppercaseEmail = userAccount?.email

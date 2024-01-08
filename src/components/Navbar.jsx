@@ -16,18 +16,18 @@ export default function Navbar({
   return (
     <nav className="navbar">
       <div className="logo-container">
-        <img src="./YardManager.png" alt="logo" className="logo" />
+        <img src="../YardManager.png" alt="logo" className="logo" />
         <hr className="hr" />
       </div>
       <div className="navbar-content">
         <div className="links">
-          <Link to="/" className="NavLink">
+          <Link to="home" className="NavLink">
             Home
           </Link>
-          <Link to="/createinvoice" className="NavLink">
+          <Link to="createinvoice" className="NavLink">
             Create Invoice
           </Link>
-          <Link to="/clients" className="NavLink">
+          <Link to="clients" className="NavLink">
             Clients
           </Link>
         </div>
