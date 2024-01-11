@@ -15,10 +15,9 @@ export default function Clients({
   swapModal,
   editClient,
   setEditClient,
-
+  user,
   setClients,
 }) {
-  const [updatedClient, setUpdatedClient] = useState([]);
   const [editedClient, setEditedClient] = useState([]);
 
   function openAddClientForm() {
@@ -47,8 +46,7 @@ export default function Clients({
               <ClientCard
                 editedClient={editedClient}
                 setEditedClient={setEditedClient}
-                updatedClient={updatedClient}
-                setUpdatedClient={setUpdatedClient}
+                setClientsUpdated={setClientsUpdated}
                 clientId={client.client_UUID}
                 key={client.client_UUID}
                 clientName={client.client_name}
@@ -64,6 +62,7 @@ export default function Clients({
                 setEditClient={setEditClient}
                 clientDataQueryForUUID={clientDataQueryForUUID}
                 setClients={setClients}
+                user={user}
               />
             );
           })}

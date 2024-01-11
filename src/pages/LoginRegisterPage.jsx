@@ -112,8 +112,6 @@ function LoginRegisterPage({
       email,
       password,
       confirmPassword,
-      companyName,
-      UserName,
     };
     signUpNewUser(newUser);
 

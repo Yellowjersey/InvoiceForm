@@ -342,6 +342,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: -1;
 }
 
 .editClientModal {
@@ -351,7 +352,7 @@
   width: 100%;
   height: 100%;
   gap: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -566,7 +567,7 @@
 
 #Extra-charge {
   width: 100%;
-  margin-left: 16px;
+  margin-left: 28px;
 }
 #invoiceReason {
   width: 100%;
@@ -574,6 +575,33 @@
 
 #Extra-label {
   width: 100%;
+}
+
+.extra-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.extra-content {
+  width: 100%;
+}
+.remove-extra {
+  width: 30px;
+  height: 30px;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background-color: #812f0e;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 #date {
@@ -637,7 +665,7 @@
 
 .homeClientCard {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
   gap: 10px;
@@ -706,6 +734,13 @@
 }
 
 .emailcontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+.imagecontainer {
   display: flex;
   justify-content: space-between;
   align-items: center;

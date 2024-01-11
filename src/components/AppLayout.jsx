@@ -73,7 +73,11 @@ export default function AppLayout({
         />
         <div className="center-content">
           <Routes>
-            <Route exact path="/home" element={<Home clients={clients} />} />
+            <Route
+              exact
+              path="/home"
+              element={<Home clients={clients} user={user} />}
+            />
             <Route
               path="/createinvoice"
               element={<CreateInvoice clients={clients} />}
@@ -92,6 +96,7 @@ export default function AppLayout({
                   editClient={editClient}
                   setEditClient={setEditClient}
                   setClients={setClients}
+                  user={user}
                 />
               }
             />

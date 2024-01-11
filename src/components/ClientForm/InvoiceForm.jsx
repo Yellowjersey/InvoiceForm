@@ -22,6 +22,12 @@ function InvoiceForm({ clients }) {
     formik.setFieldValue('extraCharges', [...formik.values.extraCharges, '']);
   };
 
+  const handleRemoveExtraCharge = (index) => {
+    const newCharges = [...formik.values.extraCharges];
+    newCharges.splice(index, 1);
+    formik.setFieldValue('extraCharges', newCharges);
+  };
+
   return (
     <div className="invoice-form-container">
       <form onSubmit={formik.handleSubmit} className="invoice-form">
@@ -74,32 +80,42 @@ function InvoiceForm({ clients }) {
           </div>
 
           {formik.values.extraCharges.map((charge, index) => (
-            <>
-              <div className="form-extra-title">
-                <label htmlFor="Extra-label" className="extraLabel">
-                  Extra Charge Title
-                </label>
-                <input key={index + 1} id="Extra-label"></input>
+            <div className="extra-container">
+              <div className="extra-content">
+                <div className="form-extra-title">
+                  <label htmlFor="Extra-label" className="extraLabel">
+                    Extra Charge {index + 1} Title
+                  </label>
+                  <input key={index + 1} id="Extra-label"></input>
+                </div>
+
+                <div className="form-extra-charge">
+                  <label htmlFor="Extra-charge" className="extraCharge">
+                    Charge Amount
+                  </label>
+
+                  <input
+                    id="Extra-charge"
+                    key={index}
+                    type="number"
+                    value={charge}
+                    onChange={(e) => {
+                      const newCharges = [...formik.values.extraCharges];
+                      newCharges[index] = e.target.value;
+                      formik.setFieldValue('extraCharges', newCharges);
+                    }}
+                  />
+                </div>
               </div>
 
-              <div className="form-extra-charge">
-                <label htmlFor="Extra-charge" className="extraCharge">
-                  Charge Amount
-                </label>
-
-                <input
-                  id="Extra-charge"
-                  key={index}
-                  type="number"
-                  value={charge}
-                  onChange={(e) => {
-                    const newCharges = [...formik.values.extraCharges];
-                    newCharges[index] = e.target.value;
-                    formik.setFieldValue('extraCharges', newCharges);
-                  }}
-                />
-              </div>
-            </>
+              <button
+                type="button"
+                className="remove-extra"
+                onClick={handleRemoveExtraCharge}
+              >
+                X
+              </button>
+            </div>
           ))}
           <button
             type="button"

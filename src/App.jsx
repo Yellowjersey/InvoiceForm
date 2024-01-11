@@ -33,6 +33,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [editClient, setEditClient] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userImage, setUserImage] = useState('YardMan.png');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -61,7 +62,7 @@ function App() {
         setClients(loggedInClients);
         // setIsLoggingOutandIn(false);
       });
-  }, [UUID]);
+  }, [UUID, clientsUpdated]);
 
   useEffect(() => {
     if (!user) {
@@ -82,7 +83,7 @@ function App() {
         {
           id: UUID,
           email: userAccount?.email,
-          user_image: `https://picsum.photos/200`,
+          user_image: `YardMan.png`,
         },
       ]);
   }
@@ -192,7 +193,7 @@ function App() {
   }
 
   async function signUpNewUser(newUser) {
-    const { data, error } = await supabase.auth.signUp({
+    const { data, error: newUserProfileError } = await supabase.auth.signUp({
       email: newUser.email,
       password: newUser.password,
       data: {

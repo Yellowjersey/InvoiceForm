@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EditClientModal from './EditClientModal';
 import { supabase } from '../supabase/supabase';
 
@@ -21,15 +21,52 @@ export default function ClientCard({
   setEditClient,
   editClient,
   clientDataQueryForUUID,
-
+  setClientsUpdated,
   setClients,
+  user,
 }) {
-  // function handleClientClick(e) {
-  //   console.log(clientId);
-  //   if (e.target.className === 'clientCard') {
-  //     setEditClient(!editClient);
-  //   }
-  // }
+  const [clientImage, setClientImage] = useState('');
+
+  const CDNURL =
+    'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/';
+
+  useEffect(() => {
+    async function fetchImage() {
+      const { data, error } = await supabase.storage
+        .from('client_images')
+        .list(user.id + '/' + clientId + '/');
+
+      if (data !== null) {
+        for (const image of data) {
+          if (image.name === clientImg) {
+            const imageUrl = `${CDNURL}${user.id}/${clientId}/${image.name}`;
+            setClientImage(imageUrl);
+
+            break; // Exit the loop once the image is found
+          }
+        }
+      }
+
+      if (error) {
+        console.error('Error fetching image:', error);
+      }
+    }
+
+    fetchImage();
+  }, [clientId, clientImg, user.id]);
+
+  async function handleClientClick(e) {
+    const { data, error } = await supabase
+      .from('Clients')
+      .select('*')
+      .match({ client_UUID: clientId });
+
+    if (data) {
+      setEditedClient(data);
+
+      setEditClient(true);
+    }
+  }
 
   async function handleDeleteClient() {
     const { data, error } = await supabase
@@ -51,23 +88,21 @@ export default function ClientCard({
         <EditClientModal
           setEditedClient={setEditedClient}
           editedClient={editedClient}
-          setUpdatedClient={setUpdatedClient}
-          updatedClient={updatedClient}
-          name={clientName}
-          address={clientAddress}
-          phone={clientPhone}
-          email={clientEmail}
-          id={clientId}
-          note={clientNotes}
-          img={clientImg}
-          rate={clientRate}
-          hour={isHourly}
+          setClientsUpdated={setClientsUpdated}
           setEditClient={setEditClient}
-          clientBalance={clientBalance}
+          initialClientName={clientName}
+          user={user}
+          setClients={setClients}
+
+          // clientBalance={clientBalance}
         />
       ) : null}
-      <div className="clientContainer">
-        <button className="client-delete-button" onClick={handleDeleteClient}>
+      <div className="clientContainer" onClick={handleClientClick}>
+        <button
+          className="client-delete-button"
+          title={`Delete Client ${clientName} `}
+          onClick={handleDeleteClient}
+        >
           X
         </button>
         <div className="clientCard" key={clientId}>
@@ -78,7 +113,7 @@ export default function ClientCard({
             // }}
           >
             <div className="clientImgContainer">
-              <img src={clientImg} />
+              <img src={clientImage} />
             </div>
             <h2 className="clientName">Name: {clientName}</h2>
             <h3 className="clientAddress">Address: {clientAddress}</h3>
