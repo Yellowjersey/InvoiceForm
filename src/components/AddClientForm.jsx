@@ -21,7 +21,7 @@ export default function AddClientForm({
       client_phone: form.clientPhone.value,
       client_email: form.clientEmail.value,
       client_notes: form.clientNotes.value,
-      client_image: `https://picsum.photos/200`,
+      client_image: `YardMan.png`,
       user_UUID: UUID,
       client_UUID: uuidv4(),
       client_rate: form.clientRate.value,

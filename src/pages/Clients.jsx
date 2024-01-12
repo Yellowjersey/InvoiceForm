@@ -38,7 +38,7 @@ export default function Clients({
   }
 
   return (
-    <div>
+    <div className="clientsContainer">
       {clients?.length > 0 ? (
         <div className="clients">
           {clients.map((client) => {

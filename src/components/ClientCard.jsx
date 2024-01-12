@@ -36,6 +36,13 @@ export default function ClientCard({
         .from('client_images')
         .list(user.id + '/' + clientId + '/');
 
+      const yardManImage =
+        'YardMan' + Math.floor(Math.random() * 5 + 1) + '.png';
+
+      if (data === null || data === undefined || data.length === 0) {
+        setClientImage(CDNURL + yardManImage);
+      }
+
       if (data !== null) {
         for (const image of data) {
           if (image.name === clientImg) {
@@ -97,7 +104,7 @@ export default function ClientCard({
           // clientBalance={clientBalance}
         />
       ) : null}
-      <div className="clientContainer" onClick={handleClientClick}>
+      <div className="clientContainer">
         <button
           className="client-delete-button"
           title={`Delete Client ${clientName} `}
@@ -135,6 +142,11 @@ export default function ClientCard({
             <label htmlFor="isHourly">Hourly</label>
           </div> */}
             <h4 className="clientBalance">Balance: $ {clientBalance}</h4>
+            <div className="editClientButtonContainer">
+              <button className="editClientButton" onClick={handleClientClick}>
+                Edit {clientName}'s Profile
+              </button>
+            </div>
           </div>
         </div>
       </div>

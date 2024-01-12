@@ -20,6 +20,13 @@ export default function HomeClientCards({
         .from('client_images')
         .list(user.id + '/' + clientId + '/');
 
+      const yardManImage =
+        'YardMan' + Math.floor(Math.random() * 5 + 1) + '.png';
+
+      if (data === null || data === undefined || data.length === 0) {
+        setClientImage(CDNURL + yardManImage);
+      }
+
       if (data !== null) {
         for (const image of data) {
           if (image.name === clientImg) {

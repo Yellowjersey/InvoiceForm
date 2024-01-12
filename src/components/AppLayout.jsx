@@ -70,6 +70,7 @@ export default function AppLayout({
           setIsLoggingOutandIn={setIsLoggingOutandIn}
           setUser={setUser}
           showToastMessage={showToastMessage}
+          user={user}
         />
         <div className="center-content">
           <Routes>

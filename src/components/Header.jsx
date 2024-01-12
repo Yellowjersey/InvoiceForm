@@ -9,6 +9,7 @@ export default function Header({
   showToastMessage,
   setIsLoggingOutandIn,
   setUser,
+  user,
 }) {
   const [showModal, setShowModal] = useState(false);
 
@@ -24,6 +25,7 @@ export default function Header({
         showToastMessage={showToastMessage}
         setIsLoggingOutandIn={setIsLoggingOutandIn}
         setUser={setUser}
+        user={user}
       />
     </div>
   );

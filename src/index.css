@@ -37,10 +37,37 @@
 .client-page-add-button {
   height: 40px;
   width: 40px;
+  padding-top: 2px;
 }
 
 .client-page-add-button:hover {
   color: #8d8a8a;
+}
+
+.editClientButton {
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  background-color: #2e2e2e;
+  cursor: pointer;
+
+  font-weight: 600;
+  color: #ffffff;
+  padding: 5px;
+}
+
+.editClientButton:hover {
+  background-color: #5a514d;
+  box-shadow: 0 0 10px 0px #00000093;
+}
+
+.editClientButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
 }
 
 .settingsModal {
@@ -338,11 +365,62 @@
   width: 100%;
   height: 100%;
   gap: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.301);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: -1;
+}
+
+.clientsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 100%;
+  height: 100%;
+}
+
+.settingsForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 100%;
+  height: 100%;
+}
+
+.settingsFormContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+
+  width: 100%;
+  height: 100%;
+}
+
+.settingsModalImageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.settingsModalNameContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.settingsModalCompanyNameContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .editClientModal {
@@ -641,7 +719,7 @@
   padding: 20px;
   flex-direction: column;
   gap: 20px;
-  width: 80%;
+  width: 100%;
 }
 
 .homeClientTotalsListTitle {

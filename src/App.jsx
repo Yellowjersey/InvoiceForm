@@ -44,7 +44,7 @@ function App() {
       .then((users) => {
         const loggedInAccount = users.data.find((user) => user.id === UUID);
 
-        if (!loggedInAccount) {
+        if (!loggedInAccount || loggedInAccount === undefined) {
           pushData();
         }
 
@@ -76,16 +76,32 @@ function App() {
     setShowModal(!showModal);
   }
 
+  async function getUserEmail() {
+    const { data: userEmailData, error: userEmailError } =
+      await supabase.auth.getUser();
+
+    return userEmailData;
+  }
+
   async function pushData() {
+    const userEmail = await getUserEmail();
+
     const { data: userProfile, error: userError } = await supabase
       .from('Users')
       .insert([
         {
           id: UUID,
-          email: userAccount?.email,
+          email: userEmail?.user?.email,
           user_image: `YardMan.png`,
         },
       ]);
+
+    if (!userError) {
+      setUUID(userEmail?.user?.id);
+    }
+    if (userError) {
+      console.error('Error fetching client data:', userError);
+    }
   }
 
   // useEffect(() => {

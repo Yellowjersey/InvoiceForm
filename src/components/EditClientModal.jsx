@@ -75,7 +75,6 @@ function EditClientModal({
           .upload(user?.id + '/' + clientId + '/' + slicedImage, clientImg, {
             cacheControl: '3600',
           });
-        console.log(slicedImage);
 
         // Check if there's an error uploading the file
         if (uploadError) {
@@ -125,7 +124,7 @@ function EditClientModal({
         onSubmit={(e) => handleUpdate(e)}
       >
         <h1>Edit {initialClientName}'s Profile</h1>
-        <h3>Upload a new image</h3>
+        <h3>Upload a new client profile image</h3>
 
         <input
           type="file"
