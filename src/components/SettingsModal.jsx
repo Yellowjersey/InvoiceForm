@@ -20,7 +20,9 @@ export default function SettingsModal({
 
   async function handleUpdate(e) {
     e.preventDefault();
+    console.log();
 
+    setUserUpdated(true);
     // setClientsUpdated(true);
 
     // Fetch client data
@@ -38,7 +40,7 @@ export default function SettingsModal({
     // List all files in the client's folder
     const { data: storageData, error: storageError } = await supabase.storage
       .from('user_images')
-      .list(`${userAccount?.id}/`);
+      .list(`${userData?.id}/`);
 
     // Check if there's an error listing files
     if (storageError) {
@@ -82,7 +84,8 @@ export default function SettingsModal({
       const loggedInUser = updateData2.filter(
         (user) => user.id === userAccount.id
       );
-      setUserAccount(loggedInUser);
+
+      setUserAccount(loggedInUser[0]);
 
       // Check if there's an error updating the client data
       if (updateError) {
@@ -91,7 +94,8 @@ export default function SettingsModal({
       }
     }
     // setEditClient(false);
-    // setUserUpdated(false);
+    setUserUpdated(false);
+    swapModal(false);
   }
 
   function handleClick(e) {
