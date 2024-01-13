@@ -12,24 +12,24 @@ export default function Sidebar({
   setShowModal,
   swapModal,
 }) {
-  useEffect(() => {
-    if (UUID === undefined || UUID === null) return;
+  // useEffect(() => {
+  //   if (UUID === undefined || UUID === null) return;
 
-    async function pushData() {
-      const { data: userProfile, error: userError } = await supabase
-        .from('Users')
-        .insert([
-          {
-            id: UUID,
-            email: userAccount?.email,
-            user_image: `https://picsum.photos/200`,
-          },
-        ]);
-    }
-    if (UUID !== undefined && UUID !== null) {
-      pushData();
-    }
-  }, [UUID]);
+  //   async function pushData() {
+  //     const { data: userProfile, error: userError } = await supabase
+  //       .from('Users')
+  //       .insert([
+  //         {
+  //           id: UUID,
+  //           email: userAccount?.email,
+  //           user_image: `https://picsum.photos/200`,
+  //         },
+  //       ]);
+  //   }
+  //   if (UUID !== undefined && UUID !== null) {
+  //     pushData();
+  //   }
+  // }, [UUID]);
 
   return (
     <div className="sidebar">

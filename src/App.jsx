@@ -86,42 +86,24 @@ function App() {
   async function pushData() {
     const userEmail = await getUserEmail();
 
-    const { data: userProfile, error: userError } = await supabase
-      .from('Users')
-      .insert([
-        {
-          id: UUID,
-          email: userEmail?.user?.email,
-          user_image: `YardMan.png`,
-        },
-      ]);
-
-    if (!userError) {
-      setUUID(userEmail?.user?.id);
-    }
-    if (userError) {
-      console.error('Error fetching client data:', userError);
+    if (!isLoginPage) {
+      const { data: userProfile, error: userError } = await supabase
+        .from('Users')
+        .insert([
+          {
+            id: UUID,
+            email: userEmail?.user?.email,
+            user_image: `YardMan.png`,
+          },
+        ]);
+      if (!userError) {
+        setUUID(userEmail?.user?.id);
+      }
+      if (userError && !isLoginPage) {
+        console.error('Error fetching client data:', userError);
+      }
     }
   }
-
-  // useEffect(() => {
-  //   if (!UUID) return;
-
-  //   async function pushData() {
-  //     const { data: userProfile, error: userError } = await supabase
-  //       .from('Users')
-  //       .insert([
-  //         {
-  //           id: UUID,
-  //           email: userAccount?.email,
-  //           user_image: `https://picsum.photos/200`,
-  //         },
-  //       ]);
-  //   }
-  //   if (UUID !== undefined && UUID !== null && user.id !== UUID) {
-  //     pushData();
-  //   }
-  // }, [UUID]);
 
   async function clientDataQueryForUUID() {
     const { data, error } = await supabase
@@ -134,10 +116,6 @@ function App() {
 
     return data;
   }
-
-  // async function getUserAccount(session) {
-  //   if (session.user === null) return;
-  // }
 
   function showToastMessage(type) {
     switch (type) {

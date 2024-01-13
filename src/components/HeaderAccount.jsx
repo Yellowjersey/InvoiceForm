@@ -19,10 +19,16 @@ function HeaderAccount({
 }) {
   const [shouldLogout, setShouldLogout] = useState(false);
   const [userUpdated, setUserUpdated] = useState(false);
+  const [imagePath, setImagePath] = useState('');
   const navigate = useNavigate();
 
   const [userImage, setUserImage] = useState('');
+  const [userName, setUserName] = useState('');
 
+  const uppercaseEmail = userAccount?.email
+    ? userAccount?.email?.charAt(0)?.toUpperCase() +
+      userAccount?.email?.slice(1)
+    : '';
   const CDNURL =
     'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/user_images/';
 
@@ -37,6 +43,7 @@ function HeaderAccount({
 
       if (data === null || data === undefined || data.length === 0) {
         setUserImage(CDNURL + yardManImage);
+        setImagePath(CDNURL + yardManImage);
       }
 
       if (data !== null) {
@@ -44,6 +51,7 @@ function HeaderAccount({
           if (image.name === userAccount?.user_image) {
             const imageUrl = `${CDNURL}${user.id}/${image.name}`;
             setUserImage(imageUrl);
+            setImagePath(imageUrl);
 
             break; // Exit the loop once the image is found
           }
@@ -56,6 +64,13 @@ function HeaderAccount({
     }
 
     fetchImage();
+    if (userAccount?.First_Name && userAccount?.Last_Name) {
+      setUserName(userAccount.First_Name + ' ' + userAccount.Last_Name);
+    } else if (userAccount?.First_Name && !userAccount?.Last_Name) {
+      setUserName(userAccount.First_Name);
+    } else if (!userAccount?.First_Name) {
+      setUserName(uppercaseEmail);
+    }
   }, [user.id, userAccount?.user_image, userUpdated]);
 
   function toggleModal() {
@@ -88,11 +103,6 @@ function HeaderAccount({
       });
   }
 
-  const uppercaseEmail = userAccount?.email
-    ? userAccount?.email?.charAt(0)?.toUpperCase() +
-      userAccount?.email?.slice(1)
-    : '';
-
   return (
     <div className="headeraccount">
       <div>
@@ -110,14 +120,18 @@ function HeaderAccount({
               userAccount={userAccount}
               setUserAccount={setUserAccount}
               setUserUpdated={setUserUpdated}
+              setImagePath={setImagePath}
+              imagePath={imagePath}
+              CDNURL={CDNURL}
             />
           }
         />
       )}
       <div className="header-text-Container">
         <div className="headeraccount-text">Welcome Back!</div>
-        <div className="headeraccount-name">{uppercaseEmail}</div>
+        <div className="headeraccount-name">{userName}</div>
       </div>
+
       <div onClick={() => toggleModal()} className="headeraccount-arrow">
         <MdKeyboardArrowDown />
       </div>

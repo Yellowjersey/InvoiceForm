@@ -61,7 +61,7 @@ function InvoiceForm({ clients }) {
           <div className="form-invoice-reason">
             <label htmlFor="invoiceReason">Invoice Reason: </label>
             <input
-              type="largeText"
+              type="text"
               id="invoiceReason"
               value={formik.values.invoiceReason}
               onChange={(e) =>
@@ -86,7 +86,7 @@ function InvoiceForm({ clients }) {
                   <label htmlFor="Extra-label" className="extraLabel">
                     Extra Charge {index + 1} Title
                   </label>
-                  <input key={index + 1} id="Extra-label"></input>
+                  <input key={index + 1} type="text" id="Extra-label"></input>
                 </div>
 
                 <div className="form-extra-charge">
