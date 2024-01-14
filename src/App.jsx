@@ -34,6 +34,7 @@ function App() {
   const [editClient, setEditClient] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userImage, setUserImage] = useState('YardMan.png');
+  const [invoiceSent, setInvoiceSent] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,7 +63,7 @@ function App() {
         setClients(loggedInClients);
         // setIsLoggingOutandIn(false);
       });
-  }, [UUID, clientsUpdated]);
+  }, [UUID, clientsUpdated, invoiceSent]);
 
   useEffect(() => {
     if (!user) {
@@ -94,6 +95,7 @@ function App() {
             id: UUID,
             email: userEmail?.user?.email,
             user_image: `YardMan.png`,
+            invoices: [],
           },
         ]);
       if (!userError) {
@@ -153,6 +155,22 @@ function App() {
         break;
       case 'emailEmpty':
         toast.error('Please enter a valid email address!', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+        });
+        break;
+      case 'invoiceSent':
+        toast.success('Your invoice has been successfully sent!', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+        });
+        break;
+      case 'invoiceFailed':
+        toast.error('An Error has Occurred while sending your invoice!', {
           position: 'top-center',
           autoClose: 3000,
           hideProgressBar: true,
@@ -229,26 +247,7 @@ function App() {
             />
           }
         />
-        {/* {isLoggingOutandIn && (
-          <div className="loading">
-          <MoonLoader
-          size={150}
-          color={'#12bc1b'}
-          loading={isLoggingOutandIn}
-          />
-          </div>
-        )} */}
-        {/* {user === null ? (
-          <div>
-          <LoginRegisterPage
-          isLoginPage={isLoginPage}
-          setIsLoginPage={setIsLoginPage}
-          setUser={setUser}
-          signUpNewUser={signUpNewUser}
-          signInWithEmail={signInWithEmail}
-          showToastMessage={showToastMessage}
-          />
-          </div> */}
+
         <Route
           path={`/${UUID}/*`}
           element={
@@ -265,12 +264,13 @@ function App() {
               setEditClient={setEditClient}
               editClient={editClient}
               clients={clients}
-              // getUserAccount={getUserAccount}
               setUUID={setUUID}
               setUser={setUser}
               setIsLoggingOutandIn={setIsLoggingOutandIn}
               setUserAccount={setUserAccount}
               showToastMessage={showToastMessage}
+              invoiceSent={invoiceSent}
+              setInvoiceSent={setInvoiceSent}
             />
           }
         />

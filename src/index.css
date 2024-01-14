@@ -793,7 +793,22 @@
 }
 .extra-content {
   width: 100%;
+  gap: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
 }
+
+.topContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
 .remove-extra {
   width: 30px;
   height: 30px;

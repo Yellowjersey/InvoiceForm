@@ -27,6 +27,8 @@ export default function AppLayout({
   setUserAccount,
   setIsLoggingOutandIn,
   showToastMessage,
+  invoiceSent,
+  setInvoiceSent,
 }) {
   const navigate = useNavigate();
 
@@ -81,7 +83,14 @@ export default function AppLayout({
             />
             <Route
               path="/createinvoice"
-              element={<CreateInvoice clients={clients} />}
+              element={
+                <CreateInvoice
+                  clients={clients}
+                  showToastMessage={showToastMessage}
+                  invoiceSent={invoiceSent}
+                  setInvoiceSent={setInvoiceSent}
+                />
+              }
             />
             <Route
               path="/clients"
