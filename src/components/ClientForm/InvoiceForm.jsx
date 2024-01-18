@@ -142,7 +142,8 @@ function InvoiceForm({
             >
               {clients?.map((client) => (
                 <option key={client.client_UUID} value={client.client_UUID}>
-                  {client.client_name}
+                  {client.client_name} - Client Balance: $
+                  {client.client_balance}
                 </option>
               ))}
             </select>

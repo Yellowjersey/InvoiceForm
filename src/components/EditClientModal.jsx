@@ -134,7 +134,7 @@ function EditClientModal({
         />
         <h3>Update {initialClientName}'s information</h3>
         <input type="hidden" value={clientId} id="id" />
-        <label htmlFor="name">Name</label>
+        <label htmlFor="clientName">Name</label>
         <input
           type="text"
           placeholder={clientName}

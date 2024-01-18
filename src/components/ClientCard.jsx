@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import EditClientModal from './EditClientModal';
 import { supabase } from '../supabase/supabase';
+import ConfirmDelete from './ConfirmDelete';
 
 export default function ClientCard({
   clientName,
@@ -26,6 +27,7 @@ export default function ClientCard({
   user,
 }) {
   const [clientImage, setClientImage] = useState('');
+  const [confirmation, setConfirmation] = useState(false);
 
   const CDNURL =
     'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/';
@@ -91,6 +93,14 @@ export default function ClientCard({
 
   return (
     <>
+      {confirmation ? (
+        <ConfirmDelete
+          clientName={clientName}
+          setConfirmation={setConfirmation}
+          handleDeleteClient={handleDeleteClient}
+        />
+      ) : null}
+
       {editClient ? (
         <EditClientModal
           setEditedClient={setEditedClient}
@@ -100,6 +110,7 @@ export default function ClientCard({
           initialClientName={clientName}
           user={user}
           setClients={setClients}
+          handleDeleteClient={handleDeleteClient}
 
           // clientBalance={clientBalance}
         />
@@ -108,7 +119,7 @@ export default function ClientCard({
         <button
           className="client-delete-button"
           title={`Delete Client ${clientName} `}
-          onClick={handleDeleteClient}
+          onClick={() => setConfirmation(true)}
         >
           X
         </button>
