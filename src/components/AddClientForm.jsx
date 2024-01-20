@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { supabase } from '../supabase/supabase';
+import FormRange from 'react-bootstrap/esm/FormRange';
 
 export default function AddClientForm({
   clientDataQueryForUUID,
@@ -21,12 +22,15 @@ export default function AddClientForm({
       client_phone: form.clientPhone.value,
       client_email: form.clientEmail.value,
       client_notes: form.clientNotes.value,
-      client_image: `YardMan.png`,
+      client_image: form?.clientImg?.files[0]?.name
+        ? form?.clientImg?.files[0]?.name
+        : `YardMan.png`,
       user_UUID: UUID,
       client_UUID: uuidv4(),
       client_rate: form.clientRate.value,
       is_hourly: form.isHourly.checked,
       client_balance: 0,
+      invoices: [],
     };
 
     if (
@@ -39,6 +43,14 @@ export default function AddClientForm({
       async function insertClient() {
         const { data, error } = await supabase.from('Clients').insert([client]);
 
+        const { data: clientImageSubmit, error: clientImageError } =
+          await supabase.storage
+            .from('client_images')
+            .upload(
+              `${UUID}/${client.client_UUID}/${client.client_image}`,
+              form.clientImg.files[0]
+            );
+
         if (data) {
           console.log('Insert successful:', data);
         }
@@ -49,6 +61,7 @@ export default function AddClientForm({
       }
       setClientsUpdated(true);
       const res = await clientDataQueryForUUID();
+      console.log('res', res);
 
       if (
         client.client_email !== res.client_email &&
@@ -69,8 +82,8 @@ export default function AddClientForm({
 
   return (
     <form className="add-client-form" onSubmit={handleSubmit} ref={modalRef}>
-      {/* <label htmlFor="clientImg">Client Image</label>
-      <input type="file" id="clientImg" /> */}
+      <label htmlFor="clientImg">Client Image</label>
+      <input type="file" id="clientImg" />
       <label htmlFor="clientName">Client Name</label>
       <input type="text" id="clientName" className="add-client-form-input" />
       <label htmlFor="clientAddress">Client Address</label>

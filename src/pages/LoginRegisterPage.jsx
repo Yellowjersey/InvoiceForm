@@ -17,6 +17,7 @@ function LoginRegisterPage({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [registerPage, setRegisterPage] = useState(true);
 
   async function signInWithEmail(user) {
     setIsLoggingOutandIn(true);
@@ -75,7 +76,7 @@ function LoginRegisterPage({
   }
 
   function handleLoginRegisterToggle() {
-    setIsLoginPage(!isLoginPage);
+    setRegisterPage(!registerPage);
     setEmail('');
     setPassword('');
     setConfirmPassword('');
@@ -90,6 +91,7 @@ function LoginRegisterPage({
     };
 
     signInWithEmail(userInfo);
+    setIsLoginPage(false);
 
     setEmail('');
     setPassword('');
@@ -128,12 +130,12 @@ function LoginRegisterPage({
         className="YardManagerLogo"
       />
       <h1 className="loginRegisterTitle">
-        {isLoginPage
+        {registerPage
           ? 'Login to your account'
           : 'Create an account to get started'}
       </h1>
       <div className="loginRegisterContent">
-        {isLoginPage ? (
+        {registerPage ? (
           <form onSubmit={handleLoginSubmit} className="loginform">
             <div className="emailcontainer">
               <label htmlFor="email">Email</label>
@@ -196,7 +198,7 @@ function LoginRegisterPage({
           onClick={handleLoginRegisterToggle}
           className="toggleRegisterLoginButton"
         >
-          {isLoginPage ? 'Register instead?' : 'Login instead?'}
+          {registerPage ? 'Register instead?' : 'Login instead?'}
         </button>
       </div>
     </div>

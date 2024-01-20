@@ -48,6 +48,17 @@ export default function ClientCard({
       if (data !== null) {
         for (const image of data) {
           if (image.name === clientImg) {
+            if (
+              image.name === 'YardMan.png' ||
+              image.name === 'YardMan1.png' ||
+              image.name === 'YardMan2.png' ||
+              image.name === 'YardMan3.png' ||
+              image.name === 'YardMan4.png' ||
+              image.name === 'YardMan5.png'
+            ) {
+              setClientImage(CDNURL + yardManImage);
+              break;
+            }
             const imageUrl = `${CDNURL}${user.id}/${clientId}/${image.name}`;
             setClientImage(imageUrl);
 
@@ -62,6 +73,7 @@ export default function ClientCard({
     }
 
     fetchImage();
+    console.log('clientImage', clientImage);
   }, [clientId, clientImg, user.id]);
 
   async function handleClientClick(e) {

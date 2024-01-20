@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { supabase } from '../supabase/supabase';
 
 export default function AppLayout({
-  logout,
+  setIsLoginPage,
   user,
   UUID,
   userAccount,
@@ -65,7 +65,7 @@ export default function AppLayout({
       />
       <div className="content-container">
         <Header
-          logout={logout}
+          setIsLoginPage={setIsLoginPage}
           userAccount={userAccount}
           setUserAccount={setUserAccount}
           setUUID={setUUID}

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import HeaderAccount from './HeaderAccount';
 
 export default function Header({
-  logout,
+  setIsLoginPage,
   userAccount,
   setUserAccount,
   setUUID,
@@ -16,7 +16,7 @@ export default function Header({
   return (
     <div className="header">
       <HeaderAccount
-        logout={logout}
+        setIsLoginPage={setIsLoginPage}
         setShowModal={setShowModal}
         showModal={showModal}
         userAccount={userAccount}

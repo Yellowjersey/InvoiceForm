@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 function HeaderAccount({
   setShowModal,
   showModal,
-  logout,
+  setIsLoginPage,
   userAccount,
   setUUID,
   setUser,
@@ -96,6 +96,7 @@ function HeaderAccount({
         setShouldLogout(true);
         setUserAccount('');
         setUUID('');
+        setIsLoginPage(true);
       })
       .catch((error) => {
         console.error('Error signing out:', error);

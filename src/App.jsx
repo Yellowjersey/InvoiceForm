@@ -38,16 +38,28 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // setIsLoggingOutandIn(true);
+    async function refreshClients() {
+      const res = await clientDataQueryForUUID();
+      setClients(res);
+    }
+    refreshClients();
+  }, [showModal]);
+
+  useEffect(() => {
     supabase
       .from('Users')
       .select('*')
       .then((users) => {
         const loggedInAccount = users.data.find((user) => user.id === UUID);
 
-        if (!loggedInAccount || loggedInAccount === undefined) {
+        if (
+          !isLoginPage &&
+          (!loggedInAccount || loggedInAccount === undefined)
+        ) {
           pushData();
         }
+
+        //invoices: [],
 
         if (loggedInAccount) {
           setUserAccount(loggedInAccount);
@@ -95,11 +107,16 @@ function App() {
             id: UUID,
             email: userEmail?.user?.email,
             user_image: `YardMan.png`,
-            invoices: [],
           },
         ]);
       if (!userError) {
         setUUID(userEmail?.user?.id);
+        setUserAccount(userProfile);
+        setUserAccount({
+          id: UUID,
+          email: userEmail?.user?.email,
+          user_image: `YardMan.png`,
+        });
       }
       if (userError && !isLoginPage) {
         console.error('Error fetching client data:', userError);
@@ -271,6 +288,7 @@ function App() {
               showToastMessage={showToastMessage}
               invoiceSent={invoiceSent}
               setInvoiceSent={setInvoiceSent}
+              setIsLoginPage={setIsLoginPage}
             />
           }
         />
