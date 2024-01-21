@@ -81,12 +81,12 @@
   align-items: center;
 }
 
-.clientCard:hover {
+/* .clientContainer:hover {
   background-color: #f5f5f5;
   border-radius: 10px;
   transform: translate(0, 1px);
   box-shadow: inset 0 1px 0px 0px #8d8a8a93;
-}
+} */
 
 .addContainer {
   display: flex;
@@ -146,12 +146,11 @@
   flex-direction: column;
   gap: 10px;
   padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #e0e0e0;
-  cursor: pointer;
+  /* border-radius: 10px;
+  border: 1px solid #e0e0e0; */
 }
 
-.clientCard img {
+.clientProfileImage {
   height: 100px;
   width: 100px;
   border-radius: 50%;
@@ -164,6 +163,9 @@
   align-items: center;
   width: 100%;
   padding-bottom: 10px;
+  flex-direction: column;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #646464;
 }
 
 .clientNotes {
@@ -332,6 +334,135 @@
 
 .clientContainer {
   position: relative;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  padding-bottom: 10px;
+  cursor: pointer;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+}
+
+.PropertyImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  position: relative;
+  /* background-color: #000000a8; */
+  border-radius: 50%;
+  height: 100px;
+  margin-top: 10px;
+}
+
+.propertyImagesTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.addPropertyImagesContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 10px;
+  flex-direction: column;
+}
+
+.addPropertyImagesButton:hover {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.addPropertyImagesButton {
+  height: 80px;
+  width: 80px;
+  padding: 2px;
+}
+
+.clientPropertyImages {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  display: flex;
+}
+
+.clientPropertyImageModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.clientPropertyImageModalContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.clientPropertyImageModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+}
+.clientPropertyImageModalBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.previousClientPropertyImageButton,
+.nextClientPropertyImageButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 40px;
+  width: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: #000000bb;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: rgb(211, 211, 211);
+}
+
+.previousClientPropertyImageButton {
+  left: 15px;
+}
+
+.nextClientPropertyImageButton {
+  right: 15px;
+}
+
+.previousClientPropertyImageButton:hover,
+.nextClientPropertyImageButton:hover {
+  /* background-color: #555555bb; */
+  box-shadow: 0 0 10px 0px #ffffffdc;
+  color: white;
 }
 
 .client-delete-button {
@@ -1259,4 +1390,9 @@
 .clientPay {
   display: flex;
   justify-content: space-between;
+  width: fit-content;
+}
+
+.clientCardInformation {
+  padding-top: 10px;
 }

@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import EditClientModal from './EditClientModal';
 import { supabase } from '../supabase/supabase';
 import ConfirmDelete from './ConfirmDelete';
+import { FcAddImage } from 'react-icons/fc';
+import ClientPropertyImageModal from './ClientPropertyImageModal';
 
 export default function ClientCard({
   clientName,
@@ -28,6 +30,10 @@ export default function ClientCard({
 }) {
   const [clientImage, setClientImage] = useState('');
   const [confirmation, setConfirmation] = useState(false);
+  const [clientPropertyImages, setClientPropertyImages] = useState([]); // ['image1', 'image2', 'image3'
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showClientPropertyImageModal, setShowClientPropertyImageModal] =
+    useState(false); // ['image1', 'image2', 'image3'
 
   const CDNURL =
     'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/';
@@ -72,11 +78,54 @@ export default function ClientCard({
       }
     }
 
+    async function fetchPropertyImages() {
+      const { data, error } = await supabase.storage
+        .from('client_images')
+        .list(user.id + '/' + clientId + '/' + 'property_images');
+
+      if (data) {
+        data.map((image) => {
+          const imageUrl = `${CDNURL}${user.id}/${clientId}/property_images/${image.name}`;
+          setClientPropertyImages((prev) => [...prev, imageUrl]);
+        });
+      }
+
+      if (error) {
+        console.error('Error fetching property images:', error);
+      }
+    }
+
     fetchImage();
-    console.log('clientImage', clientImage);
-  }, [clientId, clientImg, user.id]);
+    fetchPropertyImages();
+  }, [clientId, clientImg, user.id, currentImageIndex]);
+
+  const handleNextImage = (e) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prevIndex) => {
+      if (clientPropertyImages.length > 0) {
+        return (prevIndex + 1) % clientPropertyImages.length;
+      } else {
+        return prevIndex;
+      }
+    });
+  };
+
+  const handlePreviousImage = (e) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prevIndex) => {
+      if (clientPropertyImages.length > 0) {
+        return (
+          (prevIndex - 1 + clientPropertyImages.length) %
+          clientPropertyImages.length
+        );
+      } else {
+        return prevIndex;
+      }
+    });
+  };
 
   async function handleClientClick(e) {
+    e.stopPropagation();
     const { data, error } = await supabase
       .from('Clients')
       .select('*')
@@ -87,6 +136,11 @@ export default function ClientCard({
 
       setEditClient(true);
     }
+  }
+
+  async function handleClientPropertyImageInspect(e) {
+    e.stopPropagation();
+    setShowClientPropertyImageModal(true);
   }
 
   async function handleDeleteClient() {
@@ -105,6 +159,14 @@ export default function ClientCard({
 
   return (
     <>
+      {showClientPropertyImageModal ? (
+        <ClientPropertyImageModal
+          clientPropertyImages={clientPropertyImages}
+          setShowClientPropertyImageModal={setShowClientPropertyImageModal}
+          showClientPropertyImageModal={showClientPropertyImageModal}
+        />
+      ) : null}
+
       {confirmation ? (
         <ConfirmDelete
           clientName={clientName}
@@ -131,7 +193,10 @@ export default function ClientCard({
         <button
           className="client-delete-button"
           title={`Delete Client ${clientName} `}
-          onClick={() => setConfirmation(true)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setConfirmation(true);
+          }}
         >
           X
         </button>
@@ -143,34 +208,65 @@ export default function ClientCard({
             // }}
           >
             <div className="clientImgContainer">
-              <img src={clientImage} />
+              <img src={clientImage} className="clientProfileImage" />
+              <h2 className="clientName">Name: {clientName}</h2>
             </div>
-            <h2 className="clientName">Name: {clientName}</h2>
-            <h3 className="clientAddress">Address: {clientAddress}</h3>
-            <h3 className="clientPhone">Phone Number: {clientPhone}</h3>
-            <h3 className="clientEmail">Email: {clientEmail}</h3>
-            <p className="clientNotes">Notes: {clientNotes}</p>
+            <div className="propertyImagesTitle">
+              <h2>
+                {clientPropertyImages.length > 0
+                  ? 'Property Images'
+                  : 'No Property Images'}
+              </h2>
+            </div>
+            {clientPropertyImages.length !== 0 ? (
+              <div className="PropertyImageContainer">
+                <button
+                  onClick={(e) => handlePreviousImage(e)}
+                  className="previousClientPropertyImageButton"
+                >{`<`}</button>
 
-            <h3 className="clientPay">
-              Rate: $ {clientRate} {isHourly ? <p>/hr</p> : <p>/wk</p>}
-            </h3>
-            {/* <div>
-            <input
-            id="isHourly"
-            type="checkbox"
-            className="checkBox"
-            checked={isHourly}
-            disabled
-            />
-            <label htmlFor="isHourly">Hourly</label>
-          </div> */}
-            <h4 className="clientBalance">Balance: $ {clientBalance}</h4>
-            <div className="editClientButtonContainer">
-              <button className="editClientButton" onClick={handleClientClick}>
-                Edit {clientName}'s Profile
-              </button>
+                <img
+                  onClick={(e) => handleClientPropertyImageInspect(e)}
+                  className="clientPropertyImages"
+                  src={clientPropertyImages[currentImageIndex]}
+                  // width="30px"
+                  // height="30px"
+                  alt={clientPropertyImages[currentImageIndex]?.name}
+                />
+
+                <button
+                  onClick={(e) => handleNextImage(e)}
+                  className="nextClientPropertyImageButton"
+                >{`>`}</button>
+              </div>
+            ) : (
+              <div className="addPropertyImagesContainer">
+                <h3 className="addPropertyImagesTitle">Add Property Images</h3>
+                <FcAddImage className="addPropertyImagesButton" />
+              </div>
+            )}
+            <div className="clientCardInformation">
+              {/* <h2 className="clientName">Name: {clientName}</h2> */}
+
+              <h3 className="clientAddress">Address: {clientAddress}</h3>
+              <h3 className="clientPhone">Phone Number: {clientPhone}</h3>
+              <h3 className="clientEmail">Email: {clientEmail}</h3>
+              <p className="clientNotes">Notes: {clientNotes}</p>
+              <h3 className="clientPay">
+                Rate: $ {clientRate} {isHourly ? <p>/hr</p> : <p>/wk</p>}
+              </h3>
+
+              <h4 className="clientBalance">Balance: $ {clientBalance}</h4>
             </div>
           </div>
+        </div>
+        <div className="editClientButtonContainer">
+          <button
+            className="editClientButton"
+            onClick={(e) => handleClientClick(e)}
+          >
+            Edit {clientName}'s Profile
+          </button>
         </div>
       </div>
     </>

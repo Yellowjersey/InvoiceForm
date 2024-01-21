@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { supabase } from '../supabase/supabase';
 import FormRange from 'react-bootstrap/esm/FormRange';
 
+import useSetClientImages from '../hooks/useSetClientImages';
+
 export default function AddClientForm({
   clientDataQueryForUUID,
   closeModal,
@@ -12,9 +14,23 @@ export default function AddClientForm({
 }) {
   const modalRef = useRef();
 
+  const newClientUUID = uuidv4();
+
+  // const clientPropertyImages = useSetClientImages({ client_UUID: newClientUUID,  });
+
   async function handleSubmit(event) {
     event.preventDefault();
     const form = event.target;
+
+    const propertyImages = Array.from(form.propertyImages.files);
+
+    await useSetClientImages({
+      UUID,
+      client_UUID: newClientUUID,
+      propertyImages,
+    });
+
+    const propertyImageNames = propertyImages.map((file) => file.name);
 
     const client = {
       client_name: form.clientName.value,
@@ -26,11 +42,12 @@ export default function AddClientForm({
         ? form?.clientImg?.files[0]?.name
         : `YardMan.png`,
       user_UUID: UUID,
-      client_UUID: uuidv4(),
+      client_UUID: newClientUUID,
       client_rate: form.clientRate.value,
       is_hourly: form.isHourly.checked,
       client_balance: 0,
       invoices: [],
+      client_property_images: propertyImageNames,
     };
 
     if (
@@ -61,7 +78,6 @@ export default function AddClientForm({
       }
       setClientsUpdated(true);
       const res = await clientDataQueryForUUID();
-      console.log('res', res);
 
       if (
         client.client_email !== res.client_email &&
@@ -82,8 +98,10 @@ export default function AddClientForm({
 
   return (
     <form className="add-client-form" onSubmit={handleSubmit} ref={modalRef}>
-      <label htmlFor="clientImg">Client Image</label>
+      <label htmlFor="clientImg">Client Profile Image</label>
       <input type="file" id="clientImg" />
+      <label htmlFor="propertyImages">Property Images</label>
+      <input type="file" id="propertyImages" multiple />
       <label htmlFor="clientName">Client Name</label>
       <input type="text" id="clientName" className="add-client-form-input" />
       <label htmlFor="clientAddress">Client Address</label>
