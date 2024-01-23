@@ -34,9 +34,16 @@ export default function ClientCard({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showClientPropertyImageModal, setShowClientPropertyImageModal] =
     useState(false); // ['image1', 'image2', 'image3'
+  const [imageAdded, setImageAdded] = useState(false); // ['image1', 'image2', 'image3'
 
   const CDNURL =
     'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/';
+
+  const placeholderUrl = `https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/${user.id}/${clientId}/property_images/.emptyFolderPlaceholder`;
+
+  // Filter out the placeholder URL
+
+  // Update the state
 
   useEffect(() => {
     async function fetchImage() {
@@ -78,26 +85,36 @@ export default function ClientCard({
       }
     }
 
+    fetchImage();
+  }, [clientId, clientImg, user.id]);
+
+  useEffect(() => {
     async function fetchPropertyImages() {
       const { data, error } = await supabase.storage
         .from('client_images')
         .list(user.id + '/' + clientId + '/' + 'property_images');
 
       if (data) {
-        data.map((image) => {
-          const imageUrl = `${CDNURL}${user.id}/${clientId}/property_images/${image.name}`;
-          setClientPropertyImages((prev) => [...prev, imageUrl]);
-        });
+        // Map the data to an array of image URLs
+        const imageUrls = data.map(
+          (image) =>
+            `${CDNURL}${user.id}/${clientId}/property_images/${image.name}`
+        );
+
+        // Update the state with the image URLs
+        setClientPropertyImages(imageUrls);
+        if (clientPropertyImages[0] === placeholderUrl) {
+          setClientPropertyImages(clientPropertyImages.slice(1));
+        }
       }
 
       if (error) {
-        console.error('Error fetching property images:', error);
+        console.error('Error fetching images:', error);
       }
     }
 
-    fetchImage();
     fetchPropertyImages();
-  }, [clientId, clientImg, user.id, currentImageIndex]);
+  }, [clientId, clientImg, user.id, imageAdded]);
 
   const handleNextImage = (e) => {
     e.stopPropagation();
@@ -164,6 +181,11 @@ export default function ClientCard({
           clientPropertyImages={clientPropertyImages}
           setShowClientPropertyImageModal={setShowClientPropertyImageModal}
           showClientPropertyImageModal={showClientPropertyImageModal}
+          setClientPropertyImages={setClientPropertyImages}
+          setImageAdded={setImageAdded}
+          clientName={clientName}
+          UUID={user.id}
+          client_UUID={clientId}
         />
       ) : null}
 
@@ -213,12 +235,14 @@ export default function ClientCard({
             </div>
             <div className="propertyImagesTitle">
               <h2>
-                {clientPropertyImages.length > 0
+                {clientPropertyImages[0] !==
+                'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/addImage.jpg'
                   ? 'Property Images'
-                  : 'No Property Images'}
+                  : ''}
               </h2>
             </div>
-            {clientPropertyImages.length !== 0 ? (
+            {clientPropertyImages[0] !==
+            'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/addImage.jpg' ? (
               <div className="PropertyImageContainer">
                 <button
                   onClick={(e) => handlePreviousImage(e)}
@@ -242,7 +266,10 @@ export default function ClientCard({
             ) : (
               <div className="addPropertyImagesContainer">
                 <h3 className="addPropertyImagesTitle">Add Property Images</h3>
-                <FcAddImage className="addPropertyImagesButton" />
+                <FcAddImage
+                  className="addPropertyImagesButton"
+                  onClick={(e) => handleClientPropertyImageInspect(e)}
+                />
               </div>
             )}
             <div className="clientCardInformation">

@@ -403,7 +403,7 @@
   width: 100%;
   height: 100%;
   gap: 10px;
-  background-color: rgba(0, 0, 0, 0.5);
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -416,8 +416,23 @@
   align-items: center;
   flex-direction: column;
   gap: 10px;
+  width: fit-content;
+  height: auto;
+  z-index: 100;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+}
+
+.clientPropertyImageModalBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
 }
 
 .clientPropertyImageModalHeader {
@@ -428,11 +443,121 @@
   padding: 10px;
 }
 .clientPropertyImageModalBody {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  gap: 10px;
+  position: relative;
+}
+
+.closeModalButton {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: none;
+  background-color: #c21f1f;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: rgb(253, 253, 253);
+}
+
+.closeModalButton:hover {
+  background-color: #c21f1f;
+  box-shadow: 0 0 10px 0px #ffffffdc;
+  color: white;
+}
+
+.addClientPropertyImageFormSubmitButton {
+  width: fit-content;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  background-color: #0e8118;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  position: absolute;
+  bottom: 0;
+  left: 45.5%;
+  padding: 4px;
+}
+
+.deletePropertyImageButton {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+  background-color: #c21f1f;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  position: absolute;
+  top: -15px;
+
+  right: -15px;
+  padding: 4px;
+}
+
+.clientPropertyImageModalBody img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border: 1px solid #000000;
+  border-radius: 10px;
+}
+
+.clientPropertyImageAddImageButtonContainer {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  border: 1px solid #000000;
+  border-radius: 10px;
+
+  background-color: #ececec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.clientPropertyImageModalHeader {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  padding: 10px;
+  font-size: large;
+}
+
+.clientPropertyImageAddImageButton {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: none;
+  background-color: #1ca018bb;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: rgb(253, 253, 253);
+}
+
+.propertyImageContainers {
+  height: fit-content;
+  position: relative;
+  width: fit-content;
+}
+
+.clientPropertyImageAddImageButton:hover {
+  background-color: #1ca018;
+  box-shadow: 0 0 10px 0px #ffffffdc;
+  color: white;
 }
 
 .previousClientPropertyImageButton,
@@ -966,6 +1091,10 @@
 
 /* Hide the default file input */
 #image[type='file'] {
+  display: none;
+}
+
+#clientPropertyImageAddImageButton[type='file'] {
   display: none;
 }
 
