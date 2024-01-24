@@ -41,31 +41,35 @@ export default function Clients({
     <div className="clientsContainer">
       {clients?.length > 0 ? (
         <div className="clients">
-          {clients.map((client) => {
-            return (
-              <ClientCard
-                editedClient={editedClient}
-                setEditedClient={setEditedClient}
-                setClientsUpdated={setClientsUpdated}
-                clientId={client.client_UUID}
-                key={client.client_UUID}
-                clientName={client.client_name}
-                clientAddress={client.client_address}
-                clientPhone={client.client_phone}
-                clientEmail={client.client_email}
-                clientNotes={client.client_notes}
-                clientImg={client.client_image}
-                clientRate={client.client_rate}
-                isHourly={client.is_hourly}
-                clientBalance={client.client_balance}
-                editClient={editClient}
-                setEditClient={setEditClient}
-                clientDataQueryForUUID={clientDataQueryForUUID}
-                setClients={setClients}
-                user={user}
-              />
-            );
-          })}
+          {clients
+            .sort((a, b) => a.client_name.localeCompare(b.client_name))
+            .map((client) => {
+              return (
+                <ClientCard
+                  editedClient={editedClient}
+                  setEditedClient={setEditedClient}
+                  setClientsUpdated={setClientsUpdated}
+                  clientId={client.client_UUID}
+                  key={client.client_UUID}
+                  clientName={client.client_name}
+                  clientAddress={client.client_address}
+                  clientPhone={client.client_phone}
+                  clientEmail={client.client_email}
+                  clientNotes={client.client_notes}
+                  clientImg={client.client_image}
+                  clientRate={client.client_rate}
+                  isHourly={client.is_hourly}
+                  clientBalance={client.client_balance}
+                  editClient={editClient}
+                  setEditClient={setEditClient}
+                  clientDataQueryForUUID={clientDataQueryForUUID}
+                  setClients={setClients}
+                  user={user}
+                  clientZip={client.client_zipcode}
+                  clientState={client.client_state}
+                />
+              );
+            })}
         </div>
       ) : (
         <div className="addContainer">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../../supabase/supabase';
+import YardDotLoader from '../YardDotLoader';
 
 export default function HomeClientCards({
   Name,
@@ -10,11 +11,13 @@ export default function HomeClientCards({
   user,
 }) {
   const [clientImage, setClientImage] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const CDNURL =
     'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/';
 
   useEffect(() => {
+    setLoading(true);
     async function fetchImage() {
       const { data, error } = await supabase.storage
         .from('client_images')
@@ -41,6 +44,7 @@ export default function HomeClientCards({
       if (error) {
         console.error('Error fetching image:', error);
       }
+      setLoading(false);
     }
 
     fetchImage();
@@ -48,12 +52,11 @@ export default function HomeClientCards({
 
   return (
     <div className="homeClientCard">
-      <img
-        src={clientImage}
-        width="100px"
-        alt={Name}
-        className="clientCardImg"
-      />
+      {loading ? (
+        <YardDotLoader color={'green'} size={20} loading={loading} />
+      ) : (
+        <img src={clientImage} alt={Name} className="clientCardImg" />
+      )}
       <div className="clientInfoRows">
         <h1>Name: {Name}</h1>
         <h2>Client Balance: {total}</h2>

@@ -4,6 +4,9 @@ import { supabase } from '../supabase/supabase';
 import ConfirmDelete from './ConfirmDelete';
 import { FcAddImage } from 'react-icons/fc';
 import ClientPropertyImageModal from './ClientPropertyImageModal';
+import { Spinner } from 'react-bootstrap';
+import { BeatLoader } from 'react-spinners';
+import YardDotLoader from './YardDotLoader';
 
 export default function ClientCard({
   clientName,
@@ -27,6 +30,8 @@ export default function ClientCard({
   setClientsUpdated,
   setClients,
   user,
+  clientZip,
+  clientState,
 }) {
   const [clientImage, setClientImage] = useState('');
   const [confirmation, setConfirmation] = useState(false);
@@ -35,15 +40,27 @@ export default function ClientCard({
   const [showClientPropertyImageModal, setShowClientPropertyImageModal] =
     useState(false); // ['image1', 'image2', 'image3'
   const [imageAdded, setImageAdded] = useState(false); // ['image1', 'image2', 'image3'
+  const [loading, setLoading] = useState(true);
 
   const CDNURL =
     'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/';
 
-  const placeholderUrl = `https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/${user.id}/${clientId}/property_images/.emptyFolderPlaceholder`;
+  // const placeholderUrl = `https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/${user.id}/${clientId}/property_images/.emptyFolderPlaceholder`;
 
-  // Filter out the placeholder URL
+  const addPropertyImageURL = `https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/${user.id}/${clientId}/property_images/addPropertyImage.jpg`;
 
-  // Update the state
+  const firstImageUrl = clientPropertyImages[0]
+    ? clientPropertyImages[0].replace(/\/$/, '')
+    : '';
+  const addPropertyImageUrlNormalized = addPropertyImageURL.replace(/\/$/, '');
+
+  const adjustedCurrentImageIndex =
+    firstImageUrl === addPropertyImageUrlNormalized
+      ? currentImageIndex + 1
+      : currentImageIndex;
+
+  const uppercasedClientName =
+    clientName.charAt(0).toUpperCase() + clientName.slice(1);
 
   useEffect(() => {
     async function fetchImage() {
@@ -95,32 +112,54 @@ export default function ClientCard({
         .list(user.id + '/' + clientId + '/' + 'property_images');
 
       if (data) {
-        // Map the data to an array of image URLs
+        const addPropertyImageURL = `${CDNURL}${user.id}/${clientId}/property_images/addPropertyImage.jpg`;
+
+        // Find the index of addPropertyImageURL in the array
+        const index = data.findIndex(
+          (item) => item.name === 'addPropertyImage.jpg'
+        );
+
+        // If addPropertyImageURL is in the array, remove it
+        if (index !== -1) {
+          data.splice(index, 1);
+        }
+
         const imageUrls = data.map(
           (image) =>
             `${CDNURL}${user.id}/${clientId}/property_images/${image.name}`
         );
 
+        // Add addPropertyImageURL to the start of the array
+        imageUrls.unshift(addPropertyImageURL);
+
+        const firstImageIndex = imageUrls.findIndex(
+          (url) => url !== addPropertyImageURL
+        );
+
+        // if(firstImageIndex !== 0 && imageUrls.length > 1) {
+        setCurrentImageIndex(firstImageIndex !== -1 ? firstImageIndex : 0);
+
         // Update the state with the image URLs
         setClientPropertyImages(imageUrls);
-        if (clientPropertyImages[0] === placeholderUrl) {
-          setClientPropertyImages(clientPropertyImages.slice(1));
-        }
-      }
-
-      if (error) {
-        console.error('Error fetching images:', error);
+        setLoading(false);
       }
     }
 
     fetchPropertyImages();
-  }, [clientId, clientImg, user.id, imageAdded]);
+  }, [clientId, user.id, imageAdded]);
 
   const handleNextImage = (e) => {
     e.stopPropagation();
     setCurrentImageIndex((prevIndex) => {
       if (clientPropertyImages.length > 0) {
-        return (prevIndex + 1) % clientPropertyImages.length;
+        let nextIndex = (prevIndex + 1) % clientPropertyImages.length;
+
+        // If the next image is addPropertyImageURL, skip it
+        if (clientPropertyImages[nextIndex] === addPropertyImageURL) {
+          nextIndex = (nextIndex + 1) % clientPropertyImages.length;
+        }
+
+        return nextIndex;
       } else {
         return prevIndex;
       }
@@ -131,10 +170,18 @@ export default function ClientCard({
     e.stopPropagation();
     setCurrentImageIndex((prevIndex) => {
       if (clientPropertyImages.length > 0) {
-        return (
+        let newIndex =
           (prevIndex - 1 + clientPropertyImages.length) %
-          clientPropertyImages.length
-        );
+          clientPropertyImages.length;
+
+        // If the previous image is addPropertyImageURL, skip it
+        if (clientPropertyImages[newIndex] === addPropertyImageURL) {
+          newIndex =
+            (newIndex - 1 + clientPropertyImages.length) %
+            clientPropertyImages.length;
+        }
+
+        return newIndex;
       } else {
         return prevIndex;
       }
@@ -158,6 +205,7 @@ export default function ClientCard({
   async function handleClientPropertyImageInspect(e) {
     e.stopPropagation();
     setShowClientPropertyImageModal(true);
+    document.body.classList.add('modal-open');
   }
 
   async function handleDeleteClient() {
@@ -174,24 +222,31 @@ export default function ClientCard({
     }
   }
 
+  let imagesToPass = clientPropertyImages;
+
+  if (firstImageUrl === addPropertyImageUrlNormalized) {
+    imagesToPass = clientPropertyImages.slice(1);
+  }
+
   return (
     <>
       {showClientPropertyImageModal ? (
         <ClientPropertyImageModal
-          clientPropertyImages={clientPropertyImages}
+          clientPropertyImages={imagesToPass}
           setShowClientPropertyImageModal={setShowClientPropertyImageModal}
           showClientPropertyImageModal={showClientPropertyImageModal}
           setClientPropertyImages={setClientPropertyImages}
           setImageAdded={setImageAdded}
-          clientName={clientName}
+          clientName={uppercasedClientName}
           UUID={user.id}
           client_UUID={clientId}
+          imageAdded={imageAdded}
         />
       ) : null}
 
       {confirmation ? (
         <ConfirmDelete
-          clientName={clientName}
+          clientName={uppercasedClientName}
           setConfirmation={setConfirmation}
           handleDeleteClient={handleDeleteClient}
         />
@@ -203,7 +258,7 @@ export default function ClientCard({
           editedClient={editedClient}
           setClientsUpdated={setClientsUpdated}
           setEditClient={setEditClient}
-          initialClientName={clientName}
+          initialClientName={uppercasedClientName}
           user={user}
           setClients={setClients}
           handleDeleteClient={handleDeleteClient}
@@ -214,7 +269,7 @@ export default function ClientCard({
       <div className="clientContainer">
         <button
           className="client-delete-button"
-          title={`Delete Client ${clientName} `}
+          title={`Delete Client ${uppercasedClientName} `}
           onClick={(e) => {
             e.stopPropagation();
             setConfirmation(true);
@@ -230,19 +285,33 @@ export default function ClientCard({
             // }}
           >
             <div className="clientImgContainer">
-              <img src={clientImage} className="clientProfileImage" />
-              <h2 className="clientName">Name: {clientName}</h2>
+              {loading ? (
+                <YardDotLoader color={'green'} size={20} loading={loading} />
+              ) : (
+                <img src={clientImage} className="clientProfileImage" />
+              )}
+              <h2 className="clientName">Name: {uppercasedClientName}</h2>
             </div>
             <div className="propertyImagesTitle">
-              <h2>
-                {clientPropertyImages[0] !==
-                'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/addImage.jpg'
-                  ? 'Property Images'
-                  : ''}
-              </h2>
+              <h3>
+                {firstImageUrl === addPropertyImageUrlNormalized &&
+                clientPropertyImages.slice(1).length === 0
+                  ? ''
+                  : 'Property Images'}
+              </h3>
             </div>
-            {clientPropertyImages[0] !==
-            'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/addImage.jpg' ? (
+            {loading ? (
+              <YardDotLoader color={'green'} size={20} loading={loading} />
+            ) : firstImageUrl === addPropertyImageUrlNormalized &&
+              clientPropertyImages.slice(1).length === 0 ? (
+              <div className="addPropertyImagesContainer">
+                <h3 className="addPropertyImagesTitle">Add Property Images</h3>
+                <FcAddImage
+                  className="addPropertyImagesButton"
+                  onClick={(e) => handleClientPropertyImageInspect(e)}
+                />
+              </div>
+            ) : (
               <div className="PropertyImageContainer">
                 <button
                   onClick={(e) => handlePreviousImage(e)}
@@ -253,9 +322,7 @@ export default function ClientCard({
                   onClick={(e) => handleClientPropertyImageInspect(e)}
                   className="clientPropertyImages"
                   src={clientPropertyImages[currentImageIndex]}
-                  // width="30px"
-                  // height="30px"
-                  alt={clientPropertyImages[currentImageIndex]?.name}
+                  alt={`Property image ${clientPropertyImages[currentImageIndex]?.name}`}
                 />
 
                 <button
@@ -263,19 +330,13 @@ export default function ClientCard({
                   className="nextClientPropertyImageButton"
                 >{`>`}</button>
               </div>
-            ) : (
-              <div className="addPropertyImagesContainer">
-                <h3 className="addPropertyImagesTitle">Add Property Images</h3>
-                <FcAddImage
-                  className="addPropertyImagesButton"
-                  onClick={(e) => handleClientPropertyImageInspect(e)}
-                />
-              </div>
             )}
             <div className="clientCardInformation">
               {/* <h2 className="clientName">Name: {clientName}</h2> */}
 
               <h3 className="clientAddress">Address: {clientAddress}</h3>
+              <h3 className="clientZipCard">ZipCode: {clientZip}</h3>
+              <h3 className="clientStateCard">State: {clientState}</h3>
               <h3 className="clientPhone">Phone Number: {clientPhone}</h3>
               <h3 className="clientEmail">Email: {clientEmail}</h3>
               <p className="clientNotes">Notes: {clientNotes}</p>
@@ -292,7 +353,7 @@ export default function ClientCard({
             className="editClientButton"
             onClick={(e) => handleClientClick(e)}
           >
-            Edit {clientName}'s Profile
+            Edit {uppercasedClientName}'s Profile
           </button>
         </div>
       </div>

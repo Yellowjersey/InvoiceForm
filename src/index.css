@@ -144,7 +144,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 10px;
+
   padding: 20px;
   /* border-radius: 10px;
   border: 1px solid #e0e0e0; */
@@ -396,18 +396,24 @@
   display: flex;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
 .clientPropertyImageModal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   gap: 10px;
 
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* Changed from center to flex-start */
+  align-items: flex-start; /* Changed from center to flex-start */
   z-index: 1000;
+  overflow: auto;
+  max-height: 100dvh;
+  padding-top: 20px;
 }
 
 .clientPropertyImageModalContainer {
@@ -423,6 +429,39 @@
   border-radius: 10px;
   padding: 20px;
   position: relative;
+  margin-bottom: 40px;
+}
+
+.spinnerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.clientZipStateContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.clientZip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.clientState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
 }
 
 .clientPropertyImageModalBackground {
@@ -442,7 +481,7 @@
   width: 100%;
   padding: 10px;
 }
-.clientPropertyImageModalBody {
+/* .clientPropertyImageModalBody {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 
@@ -451,6 +490,21 @@
   padding: 20px;
   gap: 10px;
   position: relative;
+} */
+
+.clientPropertyImageModalBody {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
+  gap: 10px;
+  width: 100%;
+  height: auto; /* Changed from 100% to auto */
+  padding: 20px;
+
+  position: relative;
+}
+
+.clientPropertyImageModalBody > *:only-child {
+  grid-column: 1 / -1;
 }
 
 .closeModalButton {
@@ -487,6 +541,12 @@
   bottom: 0;
   left: 45.5%;
   padding: 4px;
+}
+
+.clientCardImg {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
 }
 
 .deletePropertyImageButton {

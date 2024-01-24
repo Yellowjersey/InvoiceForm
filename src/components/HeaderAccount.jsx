@@ -4,6 +4,7 @@ import Modal from './Modal';
 import SettingsModal from './SettingsModal';
 import { supabase } from '../supabase/supabase';
 import { useNavigate } from 'react-router-dom';
+import YardDotLoader from './YardDotLoader';
 
 function HeaderAccount({
   setShowModal,
@@ -24,6 +25,7 @@ function HeaderAccount({
 
   const [userImage, setUserImage] = useState('');
   const [userName, setUserName] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const uppercaseEmail = userAccount?.email
     ? userAccount?.email?.charAt(0)?.toUpperCase() +
@@ -33,6 +35,7 @@ function HeaderAccount({
     'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/user_images/';
 
   useEffect(() => {
+    setLoading(true);
     async function fetchImage() {
       const { data, error } = await supabase.storage
         .from('user_images')
@@ -61,6 +64,7 @@ function HeaderAccount({
       if (error) {
         console.error('Error fetching image:', error);
       }
+      setLoading(false);
     }
 
     fetchImage();
@@ -107,7 +111,11 @@ function HeaderAccount({
   return (
     <div className="headeraccount">
       <div>
-        <img src={userImage} className="headeraccount-avatar" alt="avatar" />
+        {loading ? (
+          <YardDotLoader color={'green'} size={10} loading={loading} />
+        ) : (
+          <img src={userImage} className="headeraccount-avatar" alt="avatar" />
+        )}
       </div>
       {showModal && (
         <Modal
