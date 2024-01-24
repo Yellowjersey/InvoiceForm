@@ -1,0 +1,75 @@
+Date : 2024-01-24 16:33:20
+Directory : c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm
+Total : 36 files,  11958 codes, 175 comments, 521 blanks, all 12654 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| JSON           |          2 |      7,965 |          0 |          2 |      7,967 |
+| JavaScript JSX |         25 |      2,536 |        143 |        290 |      2,969 |
+| CSS            |          1 |      1,359 |         28 |        201 |      1,588 |
+| JavaScript     |          6 |         80 |          4 |         23 |        107 |
+| HTML           |          1 |         13 |          0 |          1 |         14 |
+| Markdown       |          1 |          5 |          0 |          4 |          9 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                           | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                              |         36 |     11,958 |        175 |        521 |     12,654 |
+| . (Files)                                                                                                      |          6 |      8,011 |          1 |         10 |      8,022 |
+| src                                                                                                            |         30 |      3,947 |        174 |        511 |      4,632 |
+| src (Files)                                                                                                    |          4 |      1,612 |         66 |        235 |      1,913 |
+| src\components                                                                                                 |         18 |      1,982 |        100 |        225 |      2,307 |
+| src\components (Files)                                                                                         |         15 |      1,693 |         93 |        187 |      1,973 |
+| src\components\ClientForm                                                                                      |          1 |        218 |          7 |         25 |        250 |
+| src\components\HomeComponents                                                                                  |          2 |         71 |          0 |         13 |         84 |
+| src\hooks                                                                                                      |          3 |         47 |          3 |         18 |         68 |
+| src\pages                                                                                                      |          4 |        301 |          5 |         31 |        337 |
+| src\supabase                                                                                                   |          1 |          5 |          0 |          2 |          7 |
++----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                                                       | language       | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\.eslintrc.cjs                                     | JavaScript     |         20 |          0 |          1 |         21 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\README.md                                         | Markdown       |          5 |          0 |          4 |          9 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\index.html                                        | HTML           |         13 |          0 |          1 |         14 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\package-lock.json                                 | JSON           |      7,925 |          0 |          1 |      7,926 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\package.json                                      | JSON           |         40 |          0 |          1 |         41 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\App.jsx                                       | JavaScript JSX |        237 |         38 |         27 |        302 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\AddClientForm.jsx                  | JavaScript JSX |        188 |          1 |         20 |        209 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\AppLayout.jsx                      | JavaScript JSX |        111 |          4 |          4 |        119 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\ClientCard.jsx                     | JavaScript JSX |        302 |         13 |         48 |        363 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\ClientForm\InvoiceForm.jsx         | JavaScript JSX |        218 |          7 |         25 |        250 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\ClientPropertyImageModal.jsx       | JavaScript JSX |        147 |         34 |         27 |        208 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\ConfirmDelete.jsx                  | JavaScript JSX |         25 |          0 |          2 |         27 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\EditClientModal.jsx                | JavaScript JSX |        265 |          9 |         20 |        294 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\Header.jsx                         | JavaScript JSX |         30 |          0 |          3 |         33 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\HeaderAccount.jsx                  | JavaScript JSX |        133 |          1 |         18 |        152 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\HomeComponents\ClientTotals.jsx    | JavaScript JSX |         15 |          0 |          2 |         17 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\HomeComponents\HomeClientCards.jsx | JavaScript JSX |         56 |          0 |         11 |         67 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\Modal.jsx                          | JavaScript JSX |         14 |          0 |          4 |         18 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\Navbar.jsx                         | JavaScript JSX |         58 |          0 |          2 |         60 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\PropertyImageCards.jsx             | JavaScript JSX |         31 |          0 |          9 |         40 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\SettingsModal.jsx                  | JavaScript JSX |        229 |         12 |         18 |        259 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\Sidebar.jsx                        | JavaScript JSX |         27 |         17 |          4 |         48 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\YardCarousel.jsx                   | JavaScript JSX |        124 |          2 |          5 |        131 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\YardDotLoader.jsx                  | JavaScript JSX |          9 |          0 |          3 |         12 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\hooks\useClientImages.js                      | JavaScript     |         21 |          2 |          8 |         31 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\hooks\useDebounce.js                          | JavaScript     |         14 |          0 |          6 |         20 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\hooks\useSetClientImages.js                   | JavaScript     |         12 |          1 |          4 |         17 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\index.css                                     | CSS            |      1,359 |         28 |        201 |      1,588 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\main.jsx                                      | JavaScript JSX |         10 |          0 |          4 |         14 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\pages\Clients.jsx                             | JavaScript JSX |         84 |          0 |          5 |         89 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\pages\CreateInvoice.jsx                       | JavaScript JSX |         22 |          0 |          2 |         24 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\pages\Home.jsx                                | JavaScript JSX |         13 |          0 |          2 |         15 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\pages\LoginRegisterPage.jsx                   | JavaScript JSX |        182 |          5 |         22 |        209 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\root.jsx                                      | JavaScript JSX |          6 |          0 |          3 |          9 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\supabase\supabase.js                          | JavaScript     |          5 |          0 |          2 |          7 |
+| c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\vite.config.js                                    | JavaScript     |          8 |          1 |          2 |         11 |
+| Total                                                                                                          |                |     11,958 |        175 |        521 |     12,654 |
++----------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

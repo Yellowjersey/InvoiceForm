@@ -1,0 +1,38 @@
+"filename", "language", "JSON", "JavaScript", "Markdown", "JavaScript JSX", "HTML", "CSS", "comment", "blank", "total"
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\.eslintrc.cjs", "JavaScript", 0, 20, 0, 0, 0, 0, 0, 1, 21
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\README.md", "Markdown", 0, 0, 5, 0, 0, 0, 0, 4, 9
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\index.html", "HTML", 0, 0, 0, 0, 13, 0, 0, 1, 14
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\package-lock.json", "JSON", 7925, 0, 0, 0, 0, 0, 0, 1, 7926
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\package.json", "JSON", 40, 0, 0, 0, 0, 0, 0, 1, 41
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\App.jsx", "JavaScript JSX", 0, 0, 0, 237, 0, 0, 38, 27, 302
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\AddClientForm.jsx", "JavaScript JSX", 0, 0, 0, 188, 0, 0, 1, 20, 209
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\AppLayout.jsx", "JavaScript JSX", 0, 0, 0, 111, 0, 0, 4, 4, 119
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\ClientCard.jsx", "JavaScript JSX", 0, 0, 0, 302, 0, 0, 13, 48, 363
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\ClientForm\InvoiceForm.jsx", "JavaScript JSX", 0, 0, 0, 218, 0, 0, 7, 25, 250
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\ClientPropertyImageModal.jsx", "JavaScript JSX", 0, 0, 0, 147, 0, 0, 34, 27, 208
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\ConfirmDelete.jsx", "JavaScript JSX", 0, 0, 0, 25, 0, 0, 0, 2, 27
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\EditClientModal.jsx", "JavaScript JSX", 0, 0, 0, 265, 0, 0, 9, 20, 294
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\Header.jsx", "JavaScript JSX", 0, 0, 0, 30, 0, 0, 0, 3, 33
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\HeaderAccount.jsx", "JavaScript JSX", 0, 0, 0, 133, 0, 0, 1, 18, 152
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\HomeComponents\ClientTotals.jsx", "JavaScript JSX", 0, 0, 0, 15, 0, 0, 0, 2, 17
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\HomeComponents\HomeClientCards.jsx", "JavaScript JSX", 0, 0, 0, 56, 0, 0, 0, 11, 67
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\Modal.jsx", "JavaScript JSX", 0, 0, 0, 14, 0, 0, 0, 4, 18
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\Navbar.jsx", "JavaScript JSX", 0, 0, 0, 58, 0, 0, 0, 2, 60
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\PropertyImageCards.jsx", "JavaScript JSX", 0, 0, 0, 31, 0, 0, 0, 9, 40
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\SettingsModal.jsx", "JavaScript JSX", 0, 0, 0, 229, 0, 0, 12, 18, 259
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\Sidebar.jsx", "JavaScript JSX", 0, 0, 0, 27, 0, 0, 17, 4, 48
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\YardCarousel.jsx", "JavaScript JSX", 0, 0, 0, 124, 0, 0, 2, 5, 131
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\components\YardDotLoader.jsx", "JavaScript JSX", 0, 0, 0, 9, 0, 0, 0, 3, 12
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\hooks\useClientImages.js", "JavaScript", 0, 21, 0, 0, 0, 0, 2, 8, 31
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\hooks\useDebounce.js", "JavaScript", 0, 14, 0, 0, 0, 0, 0, 6, 20
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\hooks\useSetClientImages.js", "JavaScript", 0, 12, 0, 0, 0, 0, 1, 4, 17
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\index.css", "CSS", 0, 0, 0, 0, 0, 1359, 28, 201, 1588
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\main.jsx", "JavaScript JSX", 0, 0, 0, 10, 0, 0, 0, 4, 14
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\pages\Clients.jsx", "JavaScript JSX", 0, 0, 0, 84, 0, 0, 0, 5, 89
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\pages\CreateInvoice.jsx", "JavaScript JSX", 0, 0, 0, 22, 0, 0, 0, 2, 24
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\pages\Home.jsx", "JavaScript JSX", 0, 0, 0, 13, 0, 0, 0, 2, 15
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\pages\LoginRegisterPage.jsx", "JavaScript JSX", 0, 0, 0, 182, 0, 0, 5, 22, 209
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\root.jsx", "JavaScript JSX", 0, 0, 0, 6, 0, 0, 0, 3, 9
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\src\supabase\supabase.js", "JavaScript", 0, 5, 0, 0, 0, 0, 0, 2, 7
+"c:\Users\gbradford\Desktop\Projects\Invoice Form\InvoiceForm\vite.config.js", "JavaScript", 0, 8, 0, 0, 0, 0, 1, 2, 11
+"Total", "-", 7965, 80, 5, 2536, 13, 1359, 175, 521, 12654
