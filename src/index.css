@@ -2,7 +2,6 @@
   display: grid;
   grid-template-columns: 1fr 5fr;
   overflow: hidden;
-  scroll-behavior: none;
 }
 
 * {
@@ -22,9 +21,21 @@
   height: 100%;
 }
 
+.center-content {
+  width: 100%;
+  overflow: hidden;
+}
+
+.content-container {
+}
+
 .app {
-  overflow-y: hidden; /* Hide vertical scrollbar */
-  overflow-x: hidden; /* Hide horizontal scrollbar */
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 .clients {
@@ -32,6 +43,11 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 20px;
   padding: 20px;
+}
+
+.clientAddress {
+  /* font-size: 14px; */
+  text-wrap: nowrap;
 }
 
 .client-page-add-button {
@@ -144,7 +160,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  max-width: 300px;
   padding: 20px;
   /* border-radius: 10px;
   border: 1px solid #e0e0e0; */
@@ -1394,18 +1410,29 @@ body.modal-open {
   padding: 20px;
   flex-direction: column;
   gap: 20px;
-  width: 100%;
+
+  justify-content: center;
+  align-items: center;
 }
 
 .homeClientTotalsListTitle {
   display: flex;
   justify-content: center;
+  flex-wrap: nowrap;
+  width: fit-content;
+  overflow: auto;
+}
+
+.homeClientScroller {
+  width: 100%;
+  overflow: hidden;
 }
 
 .homeClientTotalsList {
   display: flex;
-
-  gap: 20px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 10px;
   width: 100%;
 }
 
@@ -1414,6 +1441,14 @@ body.modal-open {
   justify-content: space-between;
   gap: 10px;
   align-items: center;
+}
+
+.clientInfoRows {
+  display: flex;
+  justify-content: space-between;
+
+  align-items: start;
+  flex-direction: column;
 }
 
 .homeClientCard {
@@ -1425,7 +1460,21 @@ body.modal-open {
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #e0e0e0;
-  cursor: pointer;
+  cursor: default;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+  max-width: 300px;
+}
+
+.homeClientTotalsList::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+.homeClientTotalsList::-webkit-scrollbar-thumb {
+  background-color: rgb(11, 160, 23);
+  border-radius: 10px;
+  border: 2px solid #f5f5f5;
 }
 
 .loginRegisterContainer {
@@ -1584,4 +1633,59 @@ body.modal-open {
 
 .clientCardInformation {
   padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  gap: 5px;
+}
+
+.locationButtonDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: 1px solid #22d13f;
+  border-radius: 30px;
+  padding: 5px;
+  background-color: #e0e0e0be;
+}
+
+.locationButton {
+  color: #22d13f;
+}
+
+.locationbuttonText {
+  color: #22d13f;
+}
+
+.locationButtonDiv:hover .locationButton {
+  color: white;
+}
+.locationButtonDiv:hover .locationbuttonText {
+  color: white;
+}
+
+.locationButtonDiv:hover {
+  background-color: #31991c;
+  box-shadow: 0 0 10px 0px #ffffffdc;
+  color: white;
+  border: 1px solid #31991c00;
+}
+
+.clientTotalsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100;
+}
+
+.homeClientScrollerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
 }

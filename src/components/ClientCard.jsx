@@ -335,8 +335,11 @@ export default function ClientCard({
               {/* <h2 className="clientName">Name: {clientName}</h2> */}
 
               <h3 className="clientAddress">Address: {clientAddress}</h3>
-              <h3 className="clientZipCard">ZipCode: {clientZip}</h3>
-              <h3 className="clientStateCard">State: {clientState}</h3>
+              <div className="clientZipStateContainer">
+                {' '}
+                <h3 className="clientZipCard">ZipCode: {clientZip}</h3>
+                <h3 className="clientStateCard">State: {clientState}</h3>
+              </div>
               <h3 className="clientPhone">Phone Number: {clientPhone}</h3>
               <h3 className="clientEmail">Email: {clientEmail}</h3>
               <p className="clientNotes">Notes: {clientNotes}</p>

@@ -172,6 +172,7 @@ function EditClientModal({
             <select
               id="clientState"
               className="add-client-form-input"
+              value={clientState}
               onChange={(e) => setClientState(e.target.value)}
             >
               <option value="AL">Alabama</option>

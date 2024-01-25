@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../../supabase/supabase';
 import YardDotLoader from '../YardDotLoader';
+import { FaLocationArrow } from 'react-icons/fa';
 
 export default function HomeClientCards({
   Name,
@@ -9,9 +10,13 @@ export default function HomeClientCards({
   clientId,
   clientImg,
   user,
+  clientAddress,
+  clientZip,
+  clientState,
 }) {
   const [clientImage, setClientImage] = useState('');
   const [loading, setLoading] = useState(true);
+  const addressString = `${clientAddress} ${clientState} ${clientZip}`; // Replace these with your actual address, state, and zip variables
 
   const CDNURL =
     'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/';
@@ -32,6 +37,17 @@ export default function HomeClientCards({
 
       if (data !== null) {
         for (const image of data) {
+          if (
+            image.name === 'YardMan.png' ||
+            image.name === 'YardMan1.png' ||
+            image.name === 'YardMan2.png' ||
+            image.name === 'YardMan3.png' ||
+            image.name === 'YardMan4.png' ||
+            image.name === 'YardMan5.png'
+          ) {
+            setClientImage(CDNURL + yardManImage);
+            break;
+          }
           if (image.name === clientImg) {
             const imageUrl = `${CDNURL}${user.id}/${clientId}/${image.name}`;
             setClientImage(imageUrl);
@@ -60,6 +76,26 @@ export default function HomeClientCards({
       <div className="clientInfoRows">
         <h1>Name: {Name}</h1>
         <h2>Client Balance: {total}</h2>
+        <h2>{addressString}</h2>
+      </div>
+      <div className="clientLocationDiv">
+        <div
+          className="locationButtonDiv"
+          onClick={() => {
+            const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+              addressString
+            )}`;
+            window.open(googleMapsUrl, '_blank');
+          }}
+        >
+          <FaLocationArrow className="locationButton" />
+          <p className="locationbuttonText">Go to {Name}'s Location</p>
+        </div>
+
+        {/* <h2>Address: {clientAddress}</h2>
+        <h2>
+          {clientZip}, {clientState}
+        </h2> */}
       </div>
     </div>
   );
