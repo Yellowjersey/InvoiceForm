@@ -35,6 +35,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userImage, setUserImage] = useState('YardMan.png');
   const [invoiceSent, setInvoiceSent] = useState(false);
+  const [dueDateChanged, setDueDateChanged] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -75,7 +76,7 @@ function App() {
         setClients(loggedInClients);
         // setIsLoggingOutandIn(false);
       });
-  }, [UUID, clientsUpdated, invoiceSent]);
+  }, [UUID, clientsUpdated, invoiceSent, dueDateChanged]);
 
   useEffect(() => {
     if (!user) {
@@ -289,6 +290,7 @@ function App() {
               invoiceSent={invoiceSent}
               setInvoiceSent={setInvoiceSent}
               setIsLoginPage={setIsLoginPage}
+              setDueDateChanged={setDueDateChanged}
             />
           }
         />

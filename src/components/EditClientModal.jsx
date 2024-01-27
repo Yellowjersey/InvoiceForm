@@ -23,7 +23,12 @@ function EditClientModal({
     client_balance,
     client_zipcode,
     client_state,
+    due_date,
+    repeat_frequency,
   } = editedClient[0];
+
+  const dueDateObj = new Date(due_date);
+  console.log(console.log(dueDateObj.toISOString()));
 
   const [clientName, setClientName] = useState(client_name);
   const [clientAddress, setClientAddress] = useState(client_address);
@@ -37,7 +42,21 @@ function EditClientModal({
   const [clientBalance, setClientBalance] = useState(client_balance);
   const [clientZip, setClientZip] = useState(client_zipcode);
   const [clientState, setClientState] = useState(client_state);
+  const [dueDate, setDueDate] = useState(
+    dueDateObj.toISOString().split('.')[0]
+  );
+  const [repeatFrequency, setRepeatFrequency] = useState();
   const [pathName, setPathName] = useState('');
+
+  async function updateClientDueDate() {
+    const newDueDateObj = new Date(dueDate);
+    const timezoneOffsetMinutes = newDueDateObj.getTimezoneOffset();
+    newDueDateObj.setMinutes(
+      newDueDateObj.getMinutes() - timezoneOffsetMinutes
+    );
+
+    const newDueDateISO = newDueDateObj.toISOString();
+  }
 
   async function handleUpdate(e) {
     e.preventDefault();
@@ -86,6 +105,15 @@ function EditClientModal({
           return;
         }
       }
+
+      const newDueDateObj = new Date(dueDate);
+      const timezoneOffsetMinutes = newDueDateObj.getTimezoneOffset();
+      newDueDateObj.setMinutes(
+        newDueDateObj.getMinutes() - timezoneOffsetMinutes
+      );
+
+      const newDueDateISO = newDueDateObj.toISOString();
+
       // Update the client data with the new image path
       const { data: updateData, error: updateError } = await supabase
         .from('Clients')
@@ -101,6 +129,8 @@ function EditClientModal({
           client_balance: clientBalance,
           client_zipcode: clientZip,
           client_state: clientState,
+          due_date: newDueDateISO,
+          repeat_frequency: repeatFrequency,
         })
         .match({ client_UUID: clientId });
 
@@ -129,7 +159,7 @@ function EditClientModal({
         key={clientId}
         onSubmit={(e) => handleUpdate(e)}
       >
-        <h1>Edit {initialClientName}'s Profile</h1>
+        <h1>Edit {clientName}'s Profile</h1>
         <h3>Upload a new client profile image</h3>
 
         <input
@@ -138,7 +168,7 @@ function EditClientModal({
           id="img"
           onChange={(e) => setClientImg(e.target.files[0])}
         />
-        <h3>Update {initialClientName}'s information</h3>
+        <h3>Update {clientName}'s information</h3>
         <input type="hidden" value={clientId} id="id" />
         <label htmlFor="clientName">Name</label>
         <input
@@ -228,6 +258,38 @@ function EditClientModal({
             </select>
           </div>
         </div>
+
+        <div className="edit-client-form-due-date-container">
+          <div className="edit-client-form-due-date">
+            <label htmlFor="dueDate">Due Date:</label>
+            <input
+              id="dueDate"
+              type="datetime-local"
+              className="edit-client-form-due-date-input"
+              onChange={(e) => {
+                setDueDate(e.target.value);
+              }}
+              value={dueDate}
+            />
+          </div>
+          <div className="edit-client-form-frequency-container">
+            <label htmlFor="frequency">Frequency visited:</label>
+            <select
+              id="frequency"
+              onChange={(e) => {
+                setRepeatFrequency(e.target.value);
+              }}
+              value={repeatFrequency}
+            >
+              <option value="weekly">Weekly</option>
+              <option value="biweekly">Bi-Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="bimonthly">Bi-Monthly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+          </div>
+        </div>
+
         <label htmlFor="phone">Phone</label>
         <input
           type="text"

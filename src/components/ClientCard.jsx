@@ -32,6 +32,7 @@ export default function ClientCard({
   user,
   clientZip,
   clientState,
+  due_date,
 }) {
   const [clientImage, setClientImage] = useState('');
   const [confirmation, setConfirmation] = useState(false);
@@ -41,6 +42,7 @@ export default function ClientCard({
     useState(false); // ['image1', 'image2', 'image3'
   const [imageAdded, setImageAdded] = useState(false); // ['image1', 'image2', 'image3'
   const [loading, setLoading] = useState(true);
+  const clientDueDate = new Date(due_date).toDateString();
 
   const CDNURL =
     'https://sqdpatjugbkiwgugfjzy.supabase.co/storage/v1/object/public/client_images/';
@@ -348,6 +350,7 @@ export default function ClientCard({
               </h3>
 
               <h4 className="clientBalance">Balance: $ {clientBalance}</h4>
+              <h4 className="dueDate">Next Due Date: {clientDueDate}</h4>
             </div>
           </div>
         </div>

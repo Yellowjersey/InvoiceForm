@@ -67,6 +67,7 @@ export default function Clients({
                   user={user}
                   clientZip={client.client_zipcode}
                   clientState={client.client_state}
+                  due_date={client.due_date}
                 />
               );
             })}

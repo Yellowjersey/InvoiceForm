@@ -1,4 +1,6 @@
+import HomeClientTodaysScheduleCards from '../components/HomeClientTodaysScheduleCards';
 import ClientTotals from '../components/HomeComponents/ClientTotals';
+import HomeClientCards from '../components/HomeComponents/HomeClientCards';
 const googleMapsApiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 export default function Home({ clients, user }) {
@@ -16,6 +18,37 @@ export default function Home({ clients, user }) {
           </div>
         </div>
       </div>
+      <div className="homeClientTodaysSchedule">
+        <div className="homeClientTodaysScheduleTitle">
+          {clients?.length > 0 ? (
+            <h1>Today's Schedule</h1>
+          ) : (
+            <h1>No Clients Today</h1>
+          )}
+        </div>
+        <div className="homeClientTodaysScheduleList">
+          {clients
+            .filter((client) => {
+              const clientDueDate = new Date(client?.due_date);
+
+              return (
+                clientDueDate?.getDate() === new Date().getDate() &&
+                clientDueDate?.getMonth() === new Date().getMonth() &&
+                clientDueDate?.getFullYear() === new Date().getFullYear()
+              );
+            })
+            .sort((a, b) => new Date(a.due_date) - new Date(b.due_date)) // Sort the clients based on their due_date
+            .map((client) => {
+              return (
+                <HomeClientTodaysScheduleCards
+                  key={client.client_UUID}
+                  client={client}
+                />
+              );
+            })}
+        </div>
+      </div>
+
       {/* <div className="clientLocationMapContainer">
         <div className="homeClientLocationMapTitle">
           {clients?.length > 0 ? (

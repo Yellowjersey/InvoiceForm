@@ -7,6 +7,10 @@
 * {
   padding: 0;
   margin: 0;
+  user-select: none; /* Standard syntax */
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
 }
 
 .content-container {
@@ -1466,6 +1470,290 @@ body.modal-open {
   max-width: 300px;
 }
 
+.schedulerContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.schedulerCard {
+  display: grid;
+  grid-template-rows: 0.5fr 5fr;
+
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  cursor: default;
+  width: 90%;
+  max-height: 90%;
+  min-height: 75%;
+}
+
+.schedulerTitle {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: default;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+.previousWeekButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+  background-color: #35c04c;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.schedulerDayClient {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px;
+
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+
+  margin-bottom: 10px;
+  width: 80%;
+  user-select: none; /* Standard syntax */
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+}
+.schedulerDayClientNextDueDates {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px;
+
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  cursor: pointer;
+  background-color: #66666631;
+  margin-bottom: 10px;
+
+  width: 80%;
+  user-select: none; /* Standard syntax */
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+}
+
+.schedulerDayClientNextDueDates:hover {
+  cursor: not-allowed;
+}
+
+.nextWeekButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+  background-color: #35c04c;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.previousWeekButton:hover {
+  background-color: #35c04c;
+  box-shadow: 0 0 10px 0px #8d8a8a93;
+}
+
+.nextWeekButton:hover {
+  background-color: #35c04c;
+  box-shadow: 0 0 10px 0px #8d8a8a93;
+}
+
+.schedulerBody {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 10px;
+}
+.schedulerDayContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.schedulerDays {
+  display: grid;
+  grid-template-rows: 1fr 5fr;
+  border-right: 1px solid #e0e0e0;
+  padding-right: 10px;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+.schedulerDays:last-child {
+  border-right: none;
+}
+
+.schedulerDays:first-child {
+  padding-left: 10px;
+}
+
+.schedulerDayTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.3s ease;
+  gap: 4px;
+}
+
+.schedulerDays:hover .schedulerDayTitle {
+  background-color: #62ee75;
+}
+
+.todaysDate {
+  background-color: #caeb52b2;
+}
+
+.schedulerDayClientsContainer {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  flex-shrink: 0;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+}
+
+.clientDueDateModalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+  cursor: default;
+}
+
+.dueDateModalBackground {
+  background-color: rgba(0, 0, 0, 0.301);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.clientDueDateModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  width: 500px;
+  height: fit-content;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0px #8d8a8a93;
+}
+
+.dueDateInput {
+  border-radius: 30px;
+  border: 1px solid #505050;
+  padding-left: 10px;
+  cursor: pointer;
+  margin-left: 20px;
+  padding-right: 10px;
+}
+
+.clientDueDateModalButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 40%;
+}
+
+.saveButton {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  background-color: #0e8118;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  width: fit-content;
+  padding: 4px;
+  color: #ffffff;
+}
+
+.cancelButton {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  background-color: #c01717;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  width: fit-content;
+  padding: 4px;
+  color: #ffffff;
+}
+
+.saveButton:hover {
+  background-color: #0e8118;
+  box-shadow: 0 0 10px 0px #25742593;
+}
+
+.cancelButton:hover {
+  background-color: #c01717;
+  box-shadow: 0 0 10px 0px #81272793;
+}
+
 .homeClientTotalsList::-webkit-scrollbar {
   width: 10px;
   background-color: #f5f5f5;
@@ -1475,6 +1763,156 @@ body.modal-open {
   background-color: rgb(11, 160, 23);
   border-radius: 10px;
   border: 2px solid #f5f5f5;
+}
+
+.add-client-form-top-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.add-client-form-images-container {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  width: 100%;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.add-client-form-due-date-container {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  width: 100%;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.add-client-form-due-date-input {
+  border-radius: 30px;
+  border: 1px solid #505050;
+  padding-left: 10px;
+  cursor: pointer;
+  padding-right: 10px;
+}
+
+.add-client-form-due-date {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: fit-content;
+}
+
+.add-client-form-frequency-container {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  width: 100%;
+  gap: 10px;
+}
+
+#frequency {
+  width: 100%;
+  border-radius: 30px;
+  border: 1px solid #505050;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.edit-client-form-due-date-container {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  width: 100%;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.edit-client-form-due-date-input {
+  border-radius: 30px;
+  border: 1px solid #505050;
+  padding-left: 10px;
+  cursor: pointer;
+  padding-right: 10px;
+}
+
+.edit-client-form-due-date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+#dueDate {
+  width: 100%;
+  border-radius: 30px;
+  border: 1px solid #505050;
+  margin-left: 45px;
+  cursor: pointer;
+}
+
+.edit-client-form-frequency-container {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  width: 100%;
+  gap: 10px;
+}
+
+.homeClientTodaysScheduleList {
+  display: flex;
+
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  flex-shrink: 0;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+  max-width: 800px;
+}
+
+.homeClientScheduleCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.homeClientTodaysSchedule {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  cursor: default;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+  width: 80%;
+}
+
+.homeClientTodaysScheduleTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: default;
 }
 
 .loginRegisterContainer {

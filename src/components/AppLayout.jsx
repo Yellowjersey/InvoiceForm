@@ -6,6 +6,7 @@ import CreateInvoice from '../pages/CreateInvoice';
 import Clients from '../pages/Clients';
 import { useEffect } from 'react';
 import { supabase } from '../supabase/supabase';
+import Scheduler from '../pages/Scheduler';
 
 export default function AppLayout({
   setIsLoginPage,
@@ -29,6 +30,8 @@ export default function AppLayout({
   showToastMessage,
   invoiceSent,
   setInvoiceSent,
+  dueDateChanged,
+  setDueDateChanged,
 }) {
   const navigate = useNavigate();
 
@@ -110,6 +113,16 @@ export default function AppLayout({
                 />
               }
             />
+            <Route
+              path="scheduler"
+              element={
+                <Scheduler
+                  clients={clients}
+                  setDueDateChanged={setDueDateChanged}
+                />
+              }
+            />
+            <Route path="*" element={<Home clients={clients} user={user} />} />
           </Routes>
         </div>
       </div>

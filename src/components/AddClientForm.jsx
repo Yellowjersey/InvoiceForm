@@ -59,6 +59,8 @@ export default function AddClientForm({
       client_property_images: propertyImageNames,
       client_zipcode: form.clientZip.value,
       client_state: form.clientState.value,
+      due_date: form.dueDate.value,
+      repeat_frequency: form.frequency.value,
     };
 
     if (
@@ -109,10 +111,34 @@ export default function AddClientForm({
 
   return (
     <form className="add-client-form" onSubmit={handleSubmit} ref={modalRef}>
-      <label htmlFor="clientImg">Client Profile Image</label>
-      <input type="file" id="clientImg" />
-      <label htmlFor="propertyImages">Property Images</label>
-      <input type="file" id="propertyImages" multiple />
+      <div className="add-client-form-top-container">
+        <div className="add-client-form-images-container">
+          <label htmlFor="clientImg">Client Profile Image</label>
+          <input type="file" id="clientImg" />
+          <label htmlFor="propertyImages">Property Images</label>
+          <input type="file" id="propertyImages" multiple />
+        </div>
+        <div className="add-client-form-due-date-container">
+          <div className="add-client-form-due-date">
+            <label htmlFor="dueDate">Due Date:</label>
+            <input
+              id="dueDate"
+              type="datetime-local"
+              className="add-client-form-due-date-input"
+            />
+          </div>
+          <div className="add-client-form-frequency-container">
+            <label htmlFor="frequency">Frequency visited:</label>
+            <select id="frequency">
+              <option value="weekly">Weekly</option>
+              <option value="biweekly">Bi-Weekly</option>
+              <option value="monthly">Monthly</option>
+              <option value="bimonthly">Bi-Monthly</option>
+              <option value="yearly">Yearly</option>
+            </select>
+          </div>
+        </div>
+      </div>
       <label htmlFor="clientName">Client Name</label>
       <input type="text" id="clientName" className="add-client-form-input" />
       <label htmlFor="clientAddress">Client Address</label>

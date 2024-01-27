@@ -30,6 +30,9 @@ export default function Navbar({
           <Link to="clients" className="NavLink">
             Clients
           </Link>
+          <Link to="scheduler" className="NavLink">
+            Client Scheduler
+          </Link>
         </div>
         {showModal && (
           <Modal
