@@ -79,19 +79,6 @@ export default function HomeClientCards({
         <h2>{addressString}</h2>
       </div>
       <div className="clientLocationDiv">
-        <div
-          className="locationButtonDiv"
-          onClick={() => {
-            const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-              addressString
-            )}`;
-            window.open(googleMapsUrl, '_blank');
-          }}
-        >
-          <FaLocationArrow className="locationButton" />
-          <p className="locationbuttonText">Go to {Name}'s Location</p>
-        </div>
-
         {/* <h2>Address: {clientAddress}</h2>
         <h2>
           {clientZip}, {clientState}

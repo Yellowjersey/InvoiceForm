@@ -1889,6 +1889,121 @@ body.modal-open {
   border: 1px solid #e0e0e0;
   cursor: default;
   flex-shrink: 0;
+  position: relative;
+  color: black;
+  background-color: #ffffff8e;
+}
+
+.homeClientScheduleCardProgressButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+  width: 100%;
+}
+.homeClientScheduleCardProgressButtonContainerDone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  gap: 10px;
+  width: 100%;
+}
+
+.clientLocationMapContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  flex-shrink: 0;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+}
+
+.homeClientScheduleCardProgressButtonContainerWorking {
+  background-color: #e0dd2a;
+  color: white;
+}
+.homeClientScheduleCardProgressButtonContainerPayment {
+  background-color: #2fc0b4;
+  color: white;
+}
+.homeClientScheduleCardProgressButtonContainerJobComplete {
+  color: #0000009a;
+}
+
+.cardBlockOut {
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+
+  background-color: #0000002a;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+}
+
+.homebtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #e0e0e0;
+
+  cursor: pointer;
+  padding: 5px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.workingButton {
+  background-color: #e0dd2a;
+}
+
+.paymentButton {
+  background-color: #2fc0b4;
+}
+
+.jobCompleteButton {
+  background-color: #0e8118;
+}
+
+.workingButton:hover {
+  background-color: #e0dd2a;
+  box-shadow: 0 0 10px 0px #e0dd2a93;
+}
+
+.paymentButton:hover {
+  background-color: #2fc0b4;
+  box-shadow: 0 0 10px 0px #2fc0b493;
+}
+
+.jobCompleteButton:hover {
+  background-color: #0e8118;
+  box-shadow: 0 0 10px 0px #0e811893;
+}
+
+.resetJobButton {
+  background-color: #51f3bd;
+  z-index: 1000;
+}
+
+.resetJobButton:hover {
+  background-color: #37f7b7;
+  box-shadow: 0 0 10px 0px #55e4b493;
+  z-index: 1000;
 }
 
 .homeClientTodaysSchedule {
@@ -1913,6 +2028,46 @@ body.modal-open {
   font-size: 1.2rem;
   font-weight: 600;
   cursor: default;
+}
+
+.clientDoneModalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+  cursor: default;
+}
+
+.clientDoneModalBackground {
+  background-color: rgba(0, 0, 0, 0.301);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.clientDoneModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  width: 500px;
+  height: fit-content;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px 0px #8d8a8a93;
 }
 
 .loginRegisterContainer {
@@ -2084,18 +2239,18 @@ body.modal-open {
   align-items: center;
   gap: 10px;
   width: 100%;
-  border: 1px solid #22d13f;
+  border: 1px solid #5cc04fbe;
   border-radius: 30px;
   padding: 5px;
-  background-color: #e0e0e0be;
+  background-color: #5edb4ee1;
 }
 
 .locationButton {
-  color: #22d13f;
+  color: white;
 }
 
 .locationbuttonText {
-  color: #22d13f;
+  color: white;
 }
 
 .locationButtonDiv:hover .locationButton {
@@ -2106,8 +2261,8 @@ body.modal-open {
 }
 
 .locationButtonDiv:hover {
-  background-color: #31991c;
-  box-shadow: 0 0 10px 0px #ffffffdc;
+  background-color: #3ee727ef;
+  /* box-shadow: 0 0 10px 0px #ffffffdc; */
   color: white;
   border: 1px solid #31991c00;
 }

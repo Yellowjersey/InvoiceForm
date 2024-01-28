@@ -28,7 +28,6 @@ function EditClientModal({
   } = editedClient[0];
 
   const dueDateObj = new Date(due_date);
-  console.log(console.log(dueDateObj.toISOString()));
 
   const [clientName, setClientName] = useState(client_name);
   const [clientAddress, setClientAddress] = useState(client_address);
