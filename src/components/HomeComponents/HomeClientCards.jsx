@@ -76,7 +76,7 @@ export default function HomeClientCards({
       <div className="clientInfoRows">
         <h1>Name: {Name}</h1>
         <h2>Client Balance: {total}</h2>
-        <h2>{addressString}</h2>
+        {/* <h2>{addressString}</h2> */}
       </div>
       <div className="clientLocationDiv">
         {/* <h2>Address: {clientAddress}</h2>

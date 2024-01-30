@@ -47,22 +47,33 @@ function InvoiceForm({
       if (save) {
         const doc = new jsPDF();
 
+        const todaysDate = new Date();
+        const date = `${
+          todaysDate.getMonth() + 1
+        }/${todaysDate.getDate()}/${todaysDate.getFullYear()}`;
+        console.log(date);
+
         // Add some text to the PDF
-        doc.text('Invoice', 10, 10);
-        doc.text(`Client: ${clientData[0].client_name}`, 10, 20);
-        doc.text(`Invoice Reason: ${values.invoiceReason} `, 10, 25);
-        doc.text(`Amount: ${values.amount}`, 10, 30);
+        doc.addImage('/YardManager.png', 'PNG', 50, 5, 100, 100); // 'YardMan.png' is the image path
+        doc.setFontSize(20);
+        doc.text(`Invoice ${date}`, 75, 115);
+        doc.setFontSize(15);
+        doc.text(`Client: ${clientData[0].client_name}`, 20, 125);
+        doc.text(`Invoice Reason: ${values.invoiceReason} `, 20, 135);
+        doc.text(`Amount: ${values.amount}`, 20, 145);
 
         // Add the extra charges
-        let y = 40;
+        let y = 155;
         values.extraCharges.forEach((charge) => {
           doc.text(
             `Extra charge: ${charge.title}, Amount: ${charge.amount}`,
-            10,
+            20,
             y
           );
+
           y += 10;
         });
+        doc.text(`Total: ${addedCharges}`, 95, y + 10);
 
         // Save the PDF
         doc.save(`${clientData[0].client_name}'s invoice${Date.now()}.pdf`);

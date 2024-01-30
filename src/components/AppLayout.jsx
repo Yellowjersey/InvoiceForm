@@ -119,6 +119,7 @@ export default function AppLayout({
                 <Scheduler
                   clients={clients}
                   setDueDateChanged={setDueDateChanged}
+                  setClients={setClients}
                 />
               }
             />

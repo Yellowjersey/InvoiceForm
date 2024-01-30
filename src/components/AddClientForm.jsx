@@ -140,13 +140,24 @@ export default function AddClientForm({
         </div>
       </div>
       <label htmlFor="clientName">Client Name</label>
-      <input type="text" id="clientName" className="add-client-form-input" />
+      <input
+        type="text"
+        id="clientName"
+        className="add-client-form-input"
+        placeholder="John Doe"
+      />
       <label htmlFor="clientAddress">Client Address</label>
-      <input type="text" id="clientAddress" className="add-client-form-input" />
+      <input
+        type="text"
+        id="clientAddress"
+        className="add-client-form-input"
+        placeholder="123 Yard Lane"
+      />
       <div className="clientZipStateContainer">
         <div className="clientZip">
           <label htmlFor="clientZip">Client Zip</label>
           <input
+            placeholder="12345"
             type="number"
             id="clientZip"
             className="add-client-form-input"
@@ -209,11 +220,26 @@ export default function AddClientForm({
         </div>
       </div>
       <label htmlFor="clientPhone">Client Phone</label>
-      <input type="tel" id="clientPhone" className="add-client-form-input" />
+      <input
+        type="tel"
+        id="clientPhone"
+        className="add-client-form-input"
+        placeholder="1234567891"
+      />
       <label htmlFor="clientEmail">Client Email</label>
-      <input type="text" id="clientEmail" className="add-client-form-input" />
+      <input
+        type="text"
+        id="clientEmail"
+        className="add-client-form-input"
+        placeholder="JohnDoe@gmail.com"
+      />
       <label htmlFor="clientNotes">Client Notes</label>
-      <input type="text" id="clientNotes" className="add-client-form-input" />
+      <input
+        type="text"
+        id="clientNotes"
+        className="add-client-form-input"
+        placeholder="Cut the grass short"
+      />
       <div className="clientRate">
         <div className="rateInput">
           <label htmlFor="clientRate">Client Rate</label>
@@ -221,6 +247,7 @@ export default function AddClientForm({
             type="number"
             id="clientRate"
             className="add-client-form-input"
+            placeholder="10"
           />
         </div>
         <div className="checkBoxContainer">

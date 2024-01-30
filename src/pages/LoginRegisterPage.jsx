@@ -33,12 +33,18 @@ function LoginRegisterPage({
       //     password: user.password,
       //   });
 
-      const response = await supabase.auth.signInWithPassword({
+      const { data: response, error } = await supabase.auth.signInWithPassword({
         email: user.email,
         password: user.password,
       });
 
-      const { user: session_user, error: signInError } = response.data;
+      if (error) {
+        showToastMessage('invalidcreditials');
+        setIsLoggingOutandIn(false);
+        return;
+      }
+
+      const { user: session_user, error: signInError } = response;
 
       if (signInError) {
         console.error('Error signing in:', signInError);
@@ -120,6 +126,7 @@ function LoginRegisterPage({
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+    setRegisterPage(true);
   }
 
   return (
