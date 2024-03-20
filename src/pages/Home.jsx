@@ -24,12 +24,13 @@ export default function Home({ clients, user }) {
 
   function getClientMapLocation(client) {
     setClientMapLocation({
-      address: `https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=${client?.client_address}+${client?.client_city}+${client?.client_state}+${client?.client_zipcode}`,
+      address: `https://www.google.com/maps?q=${client?.client_address}+${client?.client_city}+${client?.client_state}+${client?.client_zipcode}`,
     });
 
-    if (mapOpen === false) {
-      setMapOpen(true);
-    }
+    window.open(clientMapLocation.address, '_blank');
+    // if (mapOpen === false) {
+    //   setMapOpen(true);
+    // }
   }
 
   return (
@@ -77,7 +78,7 @@ export default function Home({ clients, user }) {
               );
             })}
         </div>
-        {mapOpen && (
+        {/* {mapOpen && (
           <div className="clientLocationMapContainer">
             <div className="homeClientLocationMapTitle">
               {clients?.length > 0 ? (
@@ -99,7 +100,7 @@ export default function Home({ clients, user }) {
               {console.log(clientMapLocation)}
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

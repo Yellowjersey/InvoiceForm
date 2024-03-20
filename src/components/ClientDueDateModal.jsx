@@ -9,8 +9,9 @@ function ClientDueDateModal({
   setDueDateChanged,
   dueDateChanged,
   clientsOnThisDay,
+  userAccount,
 }) {
-  currentDueDate = new Date(currentDueDate).toDateString();
+  currentDueDate = new Date(currentDueDate).toISOString().slice(0, 16);
 
   const [newDueDate, setNewDueDate] = useState(currentDueDate);
 
@@ -19,12 +20,13 @@ function ClientDueDateModal({
 
   async function updateClientDueDate() {
     const newDueDateObj = new Date(newDueDate);
-    const timezoneOffsetMinutes = newDueDateObj.getTimezoneOffset();
-    newDueDateObj.setMinutes(
-      newDueDateObj.getMinutes() - timezoneOffsetMinutes
-    );
+    const userTimeZone = userAccount.Time_Zone; // Get user's time zone
 
-    const newDueDateISO = newDueDateObj.toISOString();
+    // Adjust new due date to user's time zone
+    const newDueDateISO = newDueDateObj.toLocaleString('en-US', {
+      timeZone: userTimeZone,
+      hour12: false,
+    });
 
     const { data, error } = await supabase
       .from('Clients')
@@ -50,6 +52,7 @@ function ClientDueDateModal({
             id="dueDate"
             type="datetime-local"
             className="dueDateInput"
+            value={newDueDate}
             onChange={(e) => {
               e.stopPropagation();
               setNewDueDate(e.target.value);

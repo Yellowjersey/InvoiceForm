@@ -732,7 +732,7 @@ body.modal-open {
   gap: 20px;
 
   width: 500px;
-  height: 300px;
+  height: fit-content;
   padding: 20px;
   padding-bottom: 30px;
   padding-top: 30px;
@@ -774,6 +774,15 @@ body.modal-open {
 }
 
 .settingsModalCompanyNameContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: large;
+  border: #6363639f 1px solid;
+  padding: 10px;
+  border-radius: 10px;
+}
+.settingsModalTimeZoneContainer {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -1324,6 +1333,13 @@ body.modal-open {
 }
 
 #CompanyName {
+  border-radius: 5px;
+  text-align: center;
+  border: #000000d5 1px solid;
+  width: 70%;
+}
+
+#TimeZone {
   border-radius: 5px;
   text-align: center;
   border: #000000d5 1px solid;
@@ -2106,13 +2122,13 @@ body.modal-open {
   flex-direction: column;
   gap: 10px;
   padding: 20px;
-  border-radius: 10px;
+  /* border-radius: 10px;
   border: 1px solid #e0e0e0;
-  cursor: pointer;
+  cursor: pointer; */
   width: fit-content;
   height: fit-content;
   background-color: #fff;
-  box-shadow: 0 0 10px 0px #8d8a8a93;
+  /* box-shadow: 0 0 10px 0px #8d8a8a93; */
   margin: auto;
   position: fixed;
   top: 0;
@@ -2142,8 +2158,9 @@ body.modal-open {
   align-items: start;
   flex-direction: column;
   gap: 10px;
-  padding-bottom: 40px;
+  padding-bottom: 6px;
   padding-top: 20px;
+  width: 150%;
 }
 
 .registerform {
@@ -2152,9 +2169,45 @@ body.modal-open {
   align-items: center;
   flex-direction: column;
   gap: 10px;
-  width: 100%;
-  padding-bottom: 40px;
+  width: 150%;
+  padding-bottom: 6px;
   padding-top: 20px;
+}
+
+#email {
+  width: 100%;
+  border-radius: 30px;
+  border: 1px solid #505050;
+  padding-left: 10px;
+  cursor: pointer;
+  padding-right: 10px;
+}
+#email::placeholder {
+  text-align: center;
+}
+
+#password {
+  width: 100%;
+  border-radius: 30px;
+  border: 1px solid #505050;
+  padding-left: 10px;
+  cursor: pointer;
+  padding-right: 10px;
+}
+#password::placeholder {
+  text-align: center;
+}
+
+#confirmPassword {
+  width: 100%;
+  border-radius: 30px;
+  border: 1px solid #505050;
+  padding-left: 10px;
+  cursor: pointer;
+  padding-right: 10px;
+}
+#confirmPassword::placeholder {
+  text-align: center;
 }
 
 .emailcontainer {
@@ -2205,28 +2258,63 @@ body.modal-open {
   box-shadow: 0 0 10px 0px #8d8a8a93;
 }
 
-.toggleRegisterLoginButton {
-  width: fit-content;
+.RegisterSubmitButton {
+  width: 100%;
   height: 40px;
-  border-radius: 15px;
+  border-radius: 5px;
   border: 1px solid #e0e0e0;
-  background-color: #0e4481;
+  background-color: #117cbb;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
   font-weight: 600;
   color: #ffffff;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
-.toggleRegisterLoginButton:hover {
-  background-color: #0e4481;
+.RegisterSubmitButton:hover {
+  background-color: #148dd3;
   box-shadow: 0 0 10px 0px #8d8a8a93;
 }
 
+.toggleRegisterLoginButton {
+  width: fit-content;
+  /* height: 40px;
+  border-radius: 15px; */
+  /* border: 1px solid #e0e0e0;
+  background-color: #0e4481; */
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgb(0, 132, 255);
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: white;
+  border: none;
+}
+
+.toggleLoginRegisterButton {
+  width: fit-content;
+  /* height: 40px;
+  border-radius: 15px; */
+  /* border: 1px solid #e0e0e0;
+  background-color: #0e4481; */
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgb(9, 173, 23);
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: white;
+  border: none;
+}
+
+/* .toggleRegisterLoginButton:hover {
+  background-color: #0e4481;
+  box-shadow: 0 0 10px 0px #8d8a8a93;
+} */
+
 .YardManagerLogo {
-  height: 200px;
-  width: 200px;
+  height: 300px;
+  width: 300px;
 }
 
 .checkBoxContainer {

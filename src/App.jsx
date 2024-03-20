@@ -36,6 +36,7 @@ function App() {
   const [userImage, setUserImage] = useState('YardMan.png');
   const [invoiceSent, setInvoiceSent] = useState(false);
   const [dueDateChanged, setDueDateChanged] = useState(false);
+  const [userTimeZone, setUserTimeZone] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,7 +53,7 @@ function App() {
       .select('*')
       .then((users) => {
         const loggedInAccount = users.data.find((user) => user.id === UUID);
-
+        setUserTimeZone(loggedInAccount?.Time_Zone);
         if (
           !isLoginPage &&
           (!loggedInAccount || loggedInAccount === undefined)
@@ -117,6 +118,7 @@ function App() {
           id: UUID,
           email: userEmail?.user?.email,
           user_image: `YardMan.png`,
+          Time_zone: 'America/New_York',
         });
       }
       if (userError && !isLoginPage) {

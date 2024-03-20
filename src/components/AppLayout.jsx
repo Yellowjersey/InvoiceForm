@@ -120,6 +120,7 @@ export default function AppLayout({
                   clients={clients}
                   setDueDateChanged={setDueDateChanged}
                   setClients={setClients}
+                  userAccount={userAccount}
                 />
               }
             />

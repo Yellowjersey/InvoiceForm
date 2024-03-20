@@ -136,76 +136,85 @@ function LoginRegisterPage({
         alt="YardManager"
         className="YardManagerLogo"
       />
-      <h1 className="loginRegisterTitle">
+      {/* <h1 className="loginRegisterTitle">
         {registerPage
           ? 'Login to your account'
           : 'Create an account to get started'}
-      </h1>
+      </h1> */}
       <div className="loginRegisterContent">
         {registerPage ? (
           <form onSubmit={handleLoginSubmit} className="loginform">
             <div className="emailcontainer">
-              <label htmlFor="email">Email</label>
+              {/* <label htmlFor="email">Email</label> */}
               <input
                 type="text"
                 id="email"
                 value={email}
+                placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="passwordcontainer">
-              <label htmlFor="password">Password</label>
+              {/* <label htmlFor="password">Password</label> */}
               <input
                 type="password"
                 id="password"
                 value={password}
+                placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <button type="submit" className="signInRegisterSubmitButton">
-              Submit
+              {registerPage ? 'Login' : 'Register'}
             </button>
           </form>
         ) : (
           <form onSubmit={handleRegisterSubmit} className="registerform">
             <div className="emailcontainer">
-              <label htmlFor="email">Email</label>
+              {/* <label htmlFor="email">Email</label> */}
               <input
                 type="text"
                 id="email"
                 value={email}
+                placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="passwordcontainer">
-              <label htmlFor="password">Password</label>
+              {/* <label htmlFor="password">Password</label> */}
               <input
                 type="password"
                 id="password"
                 value={password}
+                placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="confirmpasswordcontainer">
-              <label htmlFor="confirmpassword">Confirm Password</label>
+              {/* <label htmlFor="confirmpassword">Confirm Password</label> */}
               <input
                 type="password"
-                id="confirmpassword"
+                id="confirmPassword"
                 value={confirmPassword}
+                placeholder="Confirm Password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
-            <button type="submit" className="signInRegisterSubmitButton">
-              Submit
+            <button type="submit" className="RegisterSubmitButton">
+              Register
             </button>
           </form>
         )}
 
         <button
           onClick={handleLoginRegisterToggle}
-          className="toggleRegisterLoginButton"
+          className={
+            registerPage
+              ? 'toggleRegisterLoginButton'
+              : 'toggleLoginRegisterButton'
+          }
         >
-          {registerPage ? 'Register instead?' : 'Login instead?'}
+          {registerPage ? 'Sign Up' : 'Login'}
         </button>
       </div>
     </div>

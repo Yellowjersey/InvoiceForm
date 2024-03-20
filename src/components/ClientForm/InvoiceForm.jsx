@@ -34,11 +34,11 @@ function InvoiceForm({
       }
 
       const newInvoices = [...clientData[0].invoices, values];
-      const amount = parseInt(values.amount, 10);
+      const amount = parseFloat(values.amount, 10);
 
       let total = 0;
       values.extraCharges.forEach((charge) => {
-        total += parseInt(charge.amount, 10);
+        total += parseFloat(charge.amount, 10);
       });
       setExtraChargesTotal(total);
 
@@ -176,10 +176,13 @@ function InvoiceForm({
             <label htmlFor="amount">Amount: </label>
             <input
               id="amount"
-              type="number"
+              type="text"
               required={true}
+              pattern="\d+(\.\d{0,2})?" // Allow decimals with up to two decimal places
               value={formik.values.amount}
-              onChange={(e) => formik.setFieldValue('amount', e.target.value)}
+              onChange={(e) => {
+                formik.setFieldValue('amount', e.target.value);
+              }}
             />
           </div>
 
@@ -216,8 +219,9 @@ function InvoiceForm({
                   <input
                     id="Extra-charge"
                     key={index}
-                    type="number"
+                    type="text"
                     required={true}
+                    pattern="\d+(\.\d{0,2})?" // Allow decimals with up to two decimal places
                     value={charge.amount}
                     onChange={(e) => {
                       const newCharges = [...formik.values.extraCharges];

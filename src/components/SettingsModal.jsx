@@ -42,6 +42,39 @@ export default function SettingsModal({
     }
   }
 
+  const timeZones = {
+    'Pacific/Midway': '(GMT-11:00) Pacific/Midway',
+    'Pacific/Honolulu': '(GMT-10:00) Pacific/Honolulu',
+    'America/Anchorage': '(GMT-09:00) America/Anchorage',
+    'America/Los_Angeles': '(GMT-08:00) America/Los_Angeles',
+    'America/Denver': '(GMT-07:00) America/Denver',
+    'America/Phoenix': '(GMT-07:00) America/Phoenix',
+    'America/Chicago': '(GMT-06:00) America/Chicago',
+    'America/New_York': '(GMT-05:00) America/New_York',
+    'America/Caracas': '(GMT-04:30) America/Caracas',
+    'America/Halifax': '(GMT-04:00) America/Halifax',
+    'America/Santo_Domingo': '(GMT-04:00) America/Santo_Domingo',
+    'America/St_Johns': '(GMT-03:30) America/St_Johns',
+    'America/Argentina/Buenos_Aires':
+      '(GMT-03:00) America/Argentina/Buenos_Aires',
+    'America/Sao_Paulo': '(GMT-03:00) America/Sao_Paulo',
+    'Atlantic/South_Georgia': '(GMT-02:00) Atlantic/South_Georgia',
+    'Atlantic/Cape_Verde': '(GMT-01:00) Atlantic/Cape_Verde',
+    'Atlantic/Azores': '(GMT-01:00) Atlantic/Azores',
+    'Africa/Casablanca': '(GMT+00:00) Africa/Casablanca',
+    'Europe/London': '(GMT+00:00) Europe/London',
+    'Europe/Paris': '(GMT+01:00) Europe/Paris',
+    'Europe/Istanbul': '(GMT+03:00) Europe/Istanbul',
+    'Asia/Dubai': '(GMT+04:00) Asia/Dubai',
+    'Asia/Kolkata': '(GMT+05:30) Asia/Kolkata',
+    'Asia/Dhaka': '(GMT+06:00) Asia/Dhaka',
+    'Asia/Shanghai': '(GMT+08:00) Asia/Shanghai',
+    'Asia/Tokyo': '(GMT+09:00) Asia/Tokyo',
+    'Australia/Sydney': '(GMT+10:00) Australia/Sydney',
+    'Pacific/Noumea': '(GMT+11:00) Pacific/Noumea',
+    'Pacific/Auckland': '(GMT+13:00) Pacific/Auckland',
+  };
+
   async function handleUpdate(e) {
     e.preventDefault();
 
@@ -101,6 +134,7 @@ export default function SettingsModal({
           Last_Name: settingsModalLastName || initialLastName,
           Company_Name: settingsModalCompanyName || initialCompanyName,
           user_image: slicedImage,
+          Time_Zone: selectedTimeZone || userAccount.Time_Zone,
         })
         .match({ id: userAccount?.id });
 
@@ -132,6 +166,12 @@ export default function SettingsModal({
     }
   }
 
+  const [selectedTimeZone, setSelectedTimeZone] = useState('');
+
+  const handleChange = (event) => {
+    setSelectedTimeZone(event.target.value);
+  };
+
   return (
     <div className="settingsModalContent">
       <div className="userInfoDiv">
@@ -156,6 +196,10 @@ export default function SettingsModal({
           <div className="settingsEmail">
             <div>Email:</div>
             <div>{uppercaseEmail}</div>
+          </div>
+          <div className="settingsEmail">
+            <div>TimeZone:</div>
+            <div>{userAccount.Time_Zone}</div>
           </div>
         </div>
         <div className="editUserSettingsContainer">
@@ -245,6 +289,22 @@ export default function SettingsModal({
                   value={settingsModalCompanyName || ''}
                   onChange={(e) => setSettingsModalCompanyName(e.target.value)}
                 />
+              </div>
+
+              <div className="settingsModalTimeZoneContainer">
+                <label htmlFor="timeZone">Select Time Zone:</label>
+                <select
+                  id="TimeZone"
+                  value={selectedTimeZone}
+                  onChange={handleChange}
+                >
+                  <option value="">Select a time zone...</option>
+                  {Object.entries(timeZones).map(([zone, label]) => (
+                    <option key={zone} value={zone}>
+                      {label}
+                    </option>
+                  ))}
+                </select>
               </div>
               <button className="settingsSubmitButton" type="submit">
                 Submit Changes

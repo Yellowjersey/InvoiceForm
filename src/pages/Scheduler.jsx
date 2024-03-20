@@ -3,7 +3,13 @@ import SchedulerDay from '../components/SchedulerDay';
 import { FaArrowRight } from 'react-icons/fa6';
 import { FaArrowLeft } from 'react-icons/fa6';
 
-function Scheduler({ clients, setDueDateChanged, dueDateChanged, setClients }) {
+function Scheduler({
+  clients,
+  setDueDateChanged,
+  dueDateChanged,
+  setClients,
+  userAccount,
+}) {
   const [clientDueDateModal, setClientDueDateModal] = useState(false);
 
   const newDate = new Date();
@@ -83,6 +89,7 @@ function Scheduler({ clients, setDueDateChanged, dueDateChanged, setClients }) {
                   setClients={setClients}
                   getMonday={getMonday}
                   getWeekFromDate={getWeekFromDate}
+                  userAccount={userAccount}
                 />
               );
             })}

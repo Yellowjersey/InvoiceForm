@@ -147,12 +147,10 @@ function HomeClientTodaysScheduleCards({
           className="locationButtonDiv"
           onClick={(e) => {
             e.stopPropagation();
-            // const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-            //   addressString
-            // )}`;
-            // window.open(googleMapsUrl, '_blank');
-            getClientMapLocation(client);
-            setMapOpen(true);
+            const googleMapsUrl = `https://www.google.com/maps?q=${client?.client_address}+${client?.client_city}+${client?.client_state}+${client?.client_zipcode}`;
+            window.open(googleMapsUrl, '_blank');
+            // getClientMapLocation(client);
+            // setMapOpen(true);
           }}
         >
           <FaLocationArrow className="locationButton" />
